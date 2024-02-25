@@ -1,0 +1,3 @@
+C:/Users/Anastasia/course/libs/data_structures1/cmake-build-debug/CMakeFiles/data_structures1.dir
+C:/Users/Anastasia/course/libs/data_structures1/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Anastasia/course/libs/data_structures1/cmake-build-debug/CMakeFiles/rebuild_cache.dir
