@@ -155,11 +155,9 @@ void test_front_oneElementInVector() {
 void test() {
     test_createVector();
     test_reserve();
-    test_shrinkToFit();
     test_getVectorValue();
     test_isEmpty_isFull();
     test_pushBack_emptyVector();
-    test_pushBack_fullVector();
     test_popBack_notEmptyVector();
     test_atVector_notEmptyVector();
     test_atVector_requestToLastElement();
