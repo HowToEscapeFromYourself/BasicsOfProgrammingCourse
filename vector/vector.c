@@ -5,8 +5,8 @@ Vector createVector(size_t n) {
     int *data = (int *) (malloc(sizeof(int) * n));
 
     if (n == 0)
-        data = NULL;
-    else if (data == NULL) {
+        data = 0;
+    else if (data == 0) {
         fprintf(stderr, "bad alloc");
         exit(1);
     }
@@ -23,17 +23,13 @@ void reserve(Vector *v, size_t newCapacity) {
         v->size = newCapacity;
 
     if (newCapacity == 0)
-        v->data = NULL;
-    else if (v->data == NULL) {
+        v->data = 0;
+    else if (v->data == 0) {
         fprintf(stderr, "bad alloc");
         exit(1);
     }
 }
 
-
-void clear(Vector *v) {
-    v->size = 0;
-}
 
 
 void shrinkToFit(Vector *v) {
@@ -51,10 +47,6 @@ bool isEmpty(Vector *v) {
     return v->size == 0 ? true : false;
 }
 
-
-bool isFull(Vector *v) {
-    return v->size == v->capacity ? true : false;
-}
 
 
 int getVectorValue(Vector *v, size_t i) {

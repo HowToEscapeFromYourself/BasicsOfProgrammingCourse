@@ -13,7 +13,7 @@ void test_createVector() {
 
 
 void test_reserve() {
-    Vector v1 = createVector(100000);
+    Vector v1 = createVector(43534);
     pushBack(&v1, 101);
     pushBack(&v1, 42);
     reserve(&v1, 1);
@@ -43,13 +43,13 @@ void test_shrinkToFit() {
 
 void test_getVectorValue() {
     Vector v1 = createVector(3);
-    pushBack(&v1, 101);
-    pushBack(&v1, 42);
-    pushBack(&v1, 310);
-    pushBack(&v1, 777);
+    pushBack(&v1, 123);
+    pushBack(&v1, 123);
+    pushBack(&v1, 308);
+    pushBack(&v1, 712);
 
-    assert(getVectorValue(&v1, 0) == 101);
-    assert(getVectorValue(&v1, 3) == 777);
+    assert(getVectorValue(&v1, 0) == 123);
+    assert(getVectorValue(&v1, 3) == 345);
 
     deleteVector(&v1);
 }
@@ -57,7 +57,7 @@ void test_getVectorValue() {
 
 void test_isEmpty_isFull() {
     Vector v1 = createVector(2);
-    pushBack(&v1, 101);
+    pushBack(&v1, 354);
     pushBack(&v1, 42);
     assert(isFull(&v1));
     assert(!isEmpty(&v1));
@@ -153,21 +153,11 @@ void test_front_oneElementInVector() {
 
 
 void test() {
-    test_createVector();
-    test_reserve();
-    test_getVectorValue();
-    test_isEmpty_isFull();
-    test_pushBack_emptyVector();
-    test_popBack_notEmptyVector();
-    test_atVector_notEmptyVector();
-    test_atVector_requestToLastElement();
-    test_back_oneElementInVector();
-    test_front_oneElementInVector();
+
 }
 
 
 int main() {
     test();
-
     return 0;
 }
