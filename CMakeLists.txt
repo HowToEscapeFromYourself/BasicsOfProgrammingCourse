@@ -8,4 +8,6 @@ include_directories(vector)
 add_executable(data_structures1
         vector/vector.c
         vector/vector.h
-        main.c)
+        matrix/matrix.h
+        matrix/matrix.c
+        lab15.c)
