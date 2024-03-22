@@ -164,7 +164,3 @@ void test_matrix_all() {
     test_transposeMatrix();
 }
 
-int main() {
-    test_matrix_all();
-    return 0;
-}

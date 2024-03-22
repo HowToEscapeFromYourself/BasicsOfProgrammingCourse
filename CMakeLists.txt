@@ -10,4 +10,4 @@ add_executable(data_structures1
         vector/vector.h
         matrix/matrix.h
         matrix/matrix.c
-        lab15.c)
+        lab16.c)
