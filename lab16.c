@@ -29,8 +29,31 @@ void sortColsByMaxElement(matrix m) {
     selectionSortColsMatrixByColCriteria(m, getMax);
 }
 
+// умножении матрицы m1 на матрицу m2
+matrix mulMatrices(matrix m1, matrix m2) {
+    assert (m1.nCols == m2.nRows);
+    matrix m3 = getMemMatrix(m1.nRows, m2.nCols);
+    for (int col_index = 0; col_index < m3.nCols; ++col_index) {
+        for (int row_index = 0; row_index < m3.nRows; ++row_index) {
+            int sum = 0;
+            for (int i = 0; i < m1.nCols; ++i) {
+                sum += m1.values[row_index][i] * m2.values[i][col_index];
+                m3.values[row_index][col_index] = sum;
+            }
 
+        }
+    }
+    return m3;
+}
 
+//возведение симметричной матрицы в квадрат
+void getSquareOfMatrixIfSymmetric(matrix *m) {
+    if (isSymmetricMatrix(m)) {
+        matrix m1 = mulMatrices(*m, *m);
+        freeMemMatrix(m);
+        *m = m1;
+    }
+}
 
 
 //Тесты
@@ -160,6 +183,31 @@ void test_sortColsByMaxElement(){
     assert(areTwoMatricesEqual(&m1, &m2));
 }
 
+void test_getSquareOfMatrixIfSymmetric() {
+    matrix m1 = createMatrixFromArray(
+            (int[])
+                    {
+                            1, 3, 2,
+                            3, 5, 4,
+                            2, 4, 6
+                    },
+            3, 3
+    );
+
+    matrix m2 = createMatrixFromArray(
+            (int[])
+                    {
+                            14, 26, 26,
+                            26, 50, 50,
+                            26, 50, 56
+                    },
+            3, 3
+    );
+
+    getSquareOfMatrixIfSymmetric(&m1);
+    assert(areTwoMatricesEqual(&m1, &m2));
+}
+
 
 
 void all_test(){
@@ -167,6 +215,7 @@ void all_test(){
     test_sortRowsByMinElement();
     test_sortRowsByMaxElement();
     test_sortColsByMinElement();
+    test_getSquareOfMatrixIfSymmetric();
 }
 
 
