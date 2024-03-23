@@ -55,6 +55,45 @@ void getSquareOfMatrixIfSymmetric(matrix *m) {
     }
 }
 
+//возращает сумму элементов массива
+long long getSum(int *a, int n) {
+    long long  sum = 0;
+    for (int i = 0; i < n; ++i) {
+        sum+=a[i];
+    }
+    return sum;
+}
+
+//возвращает истина если массив уникален, иначе ложь
+bool isUnique(long long *a, int n) {
+    for (int i = 0; i < n; ++i) {
+        for (int j = i+1; j < n; ++j) {
+            if (a[i] == a[j])
+                return false;
+
+        }
+
+    }
+    return true;
+}
+
+void transposeIfMatrixHasNotEqualSumOfRows(matrix *m) {
+    long long arr[m->nRows];
+    for (int row_index = 0; row_index < m->nRows; ++row_index) {
+        arr[row_index] = getSum(m->values[row_index], m->nCols);
+
+    }
+    if (isUnique(arr, m->nRows)) {
+        transposeMatrix(m);
+    }
+}
+
+
+
+
+
+
+
 
 //Тесты
 void test_swapRowsMaxAndMinElem(){
@@ -208,6 +247,57 @@ void test_getSquareOfMatrixIfSymmetric() {
     assert(areTwoMatricesEqual(&m1, &m2));
 }
 
+void test_transposeIfMatrixHasNotEqualSumOfRows(){
+    matrix m1 = createMatrixFromArray(
+            (int[])
+                    {
+                            2, 3, 9, 5,//19
+                            3, 5, 6, 3,//17
+                            9, 6, 6, 5//26
+                    },
+            3, 4
+    );
+
+    matrix m2 = createMatrixFromArray(
+            (int[])
+                    {
+                            2, 3, 9,
+                            3, 5, 6,
+                            9, 6, 6,
+                            5, 3, 5
+                    },
+            4, 3
+    );
+
+    transposeIfMatrixHasNotEqualSumOfRows(&m1);
+    assert(areTwoMatricesEqual(&m1, &m2));
+
+    matrix m3 = createMatrixFromArray(
+            (int[])
+                    {
+                            8, 3, 1,
+                            3, 5, 4,
+                            2, 4, 6
+                    },
+            3, 3
+    );
+
+    matrix m4 = createMatrixFromArray(
+            (int[])
+                    {
+                            8, 3, 1,
+                            3, 5, 4,
+                            2, 4, 6
+                    },
+            3, 3
+    );
+
+    transposeIfMatrixHasNotEqualSumOfRows(&m3);
+    assert(areTwoMatricesEqual(&m3, &m4));
+}
+
+
+
 
 
 void all_test(){
@@ -216,6 +306,7 @@ void all_test(){
     test_sortRowsByMaxElement();
     test_sortColsByMinElement();
     test_getSquareOfMatrixIfSymmetric();
+    test_transposeIfMatrixHasNotEqualSumOfRows();
 }
 
 
