@@ -77,6 +77,7 @@ bool isUnique(long long *a, int n) {
     return true;
 }
 
+//транспонирует матрицу, если среди сумм элементов строк матрицы нет равных
 void transposeIfMatrixHasNotEqualSumOfRows(matrix *m) {
     long long arr[m->nRows];
     for (int row_index = 0; row_index < m->nRows; ++row_index) {
@@ -88,7 +89,13 @@ void transposeIfMatrixHasNotEqualSumOfRows(matrix *m) {
     }
 }
 
-
+//возвращает истина, если m1=m2^-1 или m1*m2=единичная матрица
+bool isMutuallyInverseMatrices(matrix m1, matrix m2) {
+    matrix m3 = mulMatrices(m1, m2);
+    bool e = isEMatrix(&m3);
+    freeMemMatrix(&m3);
+    return e;
+}
 
 
 
@@ -296,6 +303,28 @@ void test_transposeIfMatrixHasNotEqualSumOfRows(){
     assert(areTwoMatricesEqual(&m3, &m4));
 }
 
+void test_isMutuallyInverseMatrices() {
+    matrix m1 = createMatrixFromArray(
+            (int[])
+                    {
+                            2, 5, 7,
+                            6, 3, 4,
+                            5, -2, -3
+                    },
+            3, 3
+    );
+
+    matrix m2 = createMatrixFromArray(
+            (int[])
+                    {
+                            1, -1, 1,
+                            -38, 41, -34,
+                            27, -29, 24
+                    },
+            3, 3
+    );
+    assert(isMutuallyInverseMatrices(m1, m2));
+}
 
 
 
@@ -307,6 +336,7 @@ void all_test(){
     test_sortColsByMinElement();
     test_getSquareOfMatrixIfSymmetric();
     test_transposeIfMatrixHasNotEqualSumOfRows();
+    test_isMutuallyInverseMatrices();
 }
 
 
