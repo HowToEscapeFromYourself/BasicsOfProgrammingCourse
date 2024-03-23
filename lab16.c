@@ -9,17 +9,25 @@ void swapRowsMaxAndMinElem (matrix *m) {
     swapRows(*m, pos_min.rowIndex, pos_max.rowIndex);
 }
 
-//сортирует по неубыванию минимальные элементы матрицы m
+//сортирует строки по неубыванию минимальных элементов матрицы m
 void sortRowsByMinElement(matrix m) {
     insertionSortRowsMatrixByRowCriteria(m, getMin);
 }
 
-//сортирует по неубыванию максимальные элементы матрицы m
+//сортирует строки по неубыванию максимальных элементов матрицы m
 void sortRowsByMaxElement(matrix m) {
     insertionSortRowsMatrixByRowCriteria(m, getMax);
 }
 
+//сортирует столбцы по неубыванию минимальных элементов матрицы m
+void sortColsByMinElement(matrix m) {
+    selectionSortColsMatrixByColCriteria(m, getMin);
+}
 
+//сортирует столбцы по неубыванию максимальных элементов матрицы m
+void sortColsByMaxElement(matrix m) {
+    selectionSortColsMatrixByColCriteria(m, getMax);
+}
 
 
 
@@ -101,7 +109,56 @@ void test_sortRowsByMaxElement(){
     assert(areTwoMatricesEqual(&m1, &m2));
 }
 
+void test_sortColsByMinElement() {
+    matrix m1 = createMatrixFromArray(
+            (int[])
+                    {
+                            3, 4, 9,
+                            5, 2, 6,
+                            3, 1, 10
+                    },
+            3, 3
+    );
 
+    matrix m2 = createMatrixFromArray(
+            (int[])
+                    {
+                            4, 3, 9,
+                            2, 5, 6,
+                            1, 3, 10,
+
+                    },
+            3, 3
+    );
+
+    sortColsByMinElement(m1);
+    assert(areTwoMatricesEqual(&m1, &m2));
+}
+
+void test_sortColsByMaxElement(){
+    matrix m1 = createMatrixFromArray(
+            (int[])
+                    {
+                            9, 3, 2,
+                            6, 5, 4,
+                            10, 3, 1
+                    },
+            3, 3
+    );
+
+    matrix m2 = createMatrixFromArray(
+            (int[])
+                    {
+                            2, 3, 9,
+                            4, 5, 6,
+                            1, 3, 10
+                    },
+            3, 3
+    );
+
+    sortColsByMaxElement(m1);
+    assert(areTwoMatricesEqual(&m1, &m2));
+}
 
 
 
@@ -109,6 +166,7 @@ void all_test(){
     test_swapRowsMaxAndMinElem();
     test_sortRowsByMinElement();
     test_sortRowsByMaxElement();
+    test_sortColsByMinElement();
 }
 
 
