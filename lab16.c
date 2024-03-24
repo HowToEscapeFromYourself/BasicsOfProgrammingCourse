@@ -2,6 +2,7 @@
 #include <assert.h>
 #include "algorithms/algorithms.h"
 #include <limits.h>
+#include <stdio.h>
 
 //меняет строки с максимальным и минимальным элементом матрицы m
 void swapRowsMaxAndMinElem (matrix *m) {
@@ -103,6 +104,11 @@ int max(int a, int b) {
     return a>b?a:b;
 }
 
+//возвращает минимальное из двух чисел
+int min(int a, int b) {
+    return a<b?a:b;
+}
+
 //возвращает сумму максимальных элементов всех псевдодиагоналей матрицы
 long long findSumOfMaxesOfPseudoDiagonal(matrix m) {
     int n = m.nRows+m.nCols-1;
@@ -120,6 +126,20 @@ long long findSumOfMaxesOfPseudoDiagonal(matrix m) {
     return getSum(arr, n) - arr[q];
 }
 
+//возвращает минимальный элемент матрицы в выделенной области
+int getMinInArea(matrix m) {
+    position pos_max = getMaxValuePos(m);
+    int min_el = m.values[pos_max.rowIndex][pos_max.colIndex];
+    for (int row_index = 0; row_index < pos_max.rowIndex; ++row_index) {
+        int post = min(pos_max.colIndex-row_index+pos_max.rowIndex+1, m.nCols);
+        for (int col_index = max(pos_max.colIndex+row_index-pos_max.rowIndex, 0);
+             col_index < post;
+             ++col_index)
+            min_el = min(min_el, m.values[row_index][col_index]);
+
+    }
+    return min_el;
+}
 
 
 
@@ -381,6 +401,33 @@ void test_findSumOfMaxesOfPseudoDiagonal() {
     freeMemMatrix(&m2);
 }
 
+void test_getMinInArea() {
+    matrix m1 = createMatrixFromArray(
+            (int[])
+                    {
+                            2, 5, 7,
+                            6, 3, 4,
+                            5, 1, 2,
+                            -2, 9, -3,
+                            0, -1, -3,
+                    },
+            5, 3
+    );
+
+    matrix m2 = createMatrixFromArray(
+            (int[])
+                    {
+                            2, 5, 7, 5, 8,
+                            6, 3, 4, 6, 10,
+                            5, 1, 2, 3, 2
+                    },
+            3, 5
+    );
+    assert(getMinInArea(m1) == 1);
+    assert(getMinInArea(m2) == 5);
+    freeMemMatrix(&m1);
+    freeMemMatrix(&m2);
+}
 
 
 void all_test(){
@@ -392,6 +439,7 @@ void all_test(){
     test_transposeIfMatrixHasNotEqualSumOfRows();
     test_isMutuallyInverseMatrices();
     test_findSumOfMaxesOfPseudoDiagonal();
+    test_getMinInArea();
 }
 
 
