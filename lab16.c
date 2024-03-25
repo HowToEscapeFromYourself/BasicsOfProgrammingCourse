@@ -236,7 +236,7 @@ int counterEqClassOrdered(long long *a, int n) {
 
 
 
-//возвращает количество
+//возвращает количество уникальных классов строк матрицы m
 int countEqClassesByRowsSum(matrix m) {
     long long a[m.nRows];
     for (int i = 0; i < m.nRows; ++i) {
