@@ -324,6 +324,20 @@ int countNonDescendingRowsMatrices(matrix *ms, int nMatrix) {
     return counter;
 }
 
+//выыодит матрицы, имеющие наибольшее число нулевых строк
+void printMatrixWithMaxZeroRows(matrix *ms, int nMatrix) {
+    int max_null = 0;
+    for (int i = 0; i < nMatrix; ++i) {
+        if (countZeroRows(ms[i]) > max_null)
+            max_null = countZeroRows(ms[i]);
+    }
+    for (int i = 0; i < nMatrix; ++i) {
+        if (countZeroRows(ms[i]) == max_null)
+            outputMatrix(ms[i]);
+    }
+}
+
+
 
 //Тесты
 void test_swapRowsMaxAndMinElem(){
@@ -865,6 +879,64 @@ void test_countNonDescendingRowsMatrices() {
     freeMemMatrix(&m04);
 }
 
+void test_printMatrixWithMaxZeroRows() {
+    matrix m1 = createMatrixFromArray(
+            (int[])
+                    {
+                            0, 1,
+                            1, 0,
+                            0, 0
+                    },
+            3, 2
+    );
+
+    matrix m2 = createMatrixFromArray(
+            (int[])
+                    {
+                            1, 1,
+                            2, 1,
+                            1, 1
+                    },
+            3, 2
+    );
+
+    matrix m3 = createMatrixFromArray(
+            (int[])
+                    {
+                            0, 0,
+                            0, 0,
+                            4, 7
+                    },
+            3, 2
+    );
+
+    matrix m4 = createMatrixFromArray(
+            (int[])
+                    {
+                            0, 0,
+                            0, 1,
+                            0, 0
+                    },
+            3, 2
+    );
+    matrix m5 = createMatrixFromArray(
+            (int[])
+                    {
+                            0, 1,
+                            0, 2,
+                            0, 3
+                    },
+            3, 2
+    );
+    matrix ms[] = {m1, m2, m3, m4, m5};
+    printMatrixWithMaxZeroRows(ms, 5);
+    freeMemMatrix(&m1);
+    freeMemMatrix(&m2);
+    freeMemMatrix(&m3);
+    freeMemMatrix(&m4);
+    freeMemMatrix(&m5);
+}
+
 
 
 
@@ -884,6 +956,7 @@ void all_test(){
     test_getNSpecialElement();
     test_swapPenultimateRow();
     test_countNonDescendingRowsMatrices();
+    test_printMatrixWithMaxZeroRows();
 }
 
 
