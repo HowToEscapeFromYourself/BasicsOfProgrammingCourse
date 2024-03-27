@@ -246,6 +246,30 @@ int countEqClassesByRowsSum(matrix m) {
     return counterEqClassOrdered(a, m.nRows);
 }
 
+//возвращает количество особых элементов матрицы, считая элемент "особым" ,
+// если он больше суммы остальных элементов своего столбца.
+int getNSpecialElement(matrix m) {
+    int counter = 0;
+
+    for  (int col_index = 0; col_index < m.nCols; ++col_index) {
+        int sum = 0;
+        int el_max = m.values[0][col_index];
+        for (int row_index = 0; row_index < m.nRows; ++row_index) {
+            sum += m.values[row_index][col_index];
+            if (m.values[row_index][col_index] > el_max)
+                el_max = m.values[row_index] [col_index];
+
+        }
+        if ((sum - el_max) < el_max)
+            counter++;
+    }
+    return counter;
+}
+
+
+
+
+
 
 
 //Тесты
@@ -610,6 +634,38 @@ void test_countEqClassesByRowsSum() {
     freeMemMatrix(&m2);
 }
 
+void test_getNSpecialElement() {
+    matrix m1 = createMatrixFromArray(
+            (int[])
+                    {
+                            2, -1, 7, 4,
+                            -3, 3, 4, 5,
+                            5, 1, 2, 6,
+                            -2, 9, -3, 7,
+                            0, -1, -3, 8,
+                    },
+            5, 4
+    );
+
+    assert(getNSpecialElement(m1) == 3);
+    freeMemMatrix(&m1);
+
+    matrix m2 = createMatrixFromArray(
+            (int[])
+                    {
+                            3, 5, 5, 4,
+                            2, 3, 6, 7,
+                            12, 2, 1, 2
+
+                    },
+            3, 4
+    );
+    assert(getNSpecialElement(m2) == 2);
+    freeMemMatrix(&m2);
+}
+
+
+
 void all_test(){
     test_swapRowsMaxAndMinElem();
     test_sortRowsByMinElement();
@@ -617,13 +673,13 @@ void all_test(){
     test_sortColsByMinElement();
     test_sortColsByMaxElement();
     test_getSquareOfMatrixIfSymmetric();
-    test_sortByDistances();
     test_transposeIfMatrixHasNotEqualSumOfRows();
     test_isMutuallyInverseMatrices();
     test_findSumOfMaxesOfPseudoDiagonal();
     test_getMinInArea();
+    test_sortByDistances();
     test_countEqClassesByRowsSum();
-
+    test_getNSpecialElement();
 }
 
 

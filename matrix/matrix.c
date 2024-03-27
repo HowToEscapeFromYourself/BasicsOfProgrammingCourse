@@ -140,7 +140,7 @@ bool areTwoMatricesEqual(matrix *m1, matrix *m2) {
     for (int row_index = 0; row_index < m1->nRows; ++row_index) {
         if (memcmp(m1->values[row_index],
                    m2->values[row_index],
-                   m1->nRows*sizeof (int)))
+                   m1->nCols*sizeof (int)))
             return false;
     }
     return true;
