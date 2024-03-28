@@ -337,6 +337,35 @@ void printMatrixWithMaxZeroRows(matrix *ms, int nMatrix) {
     }
 }
 
+//возвращает норму матрицы(максимальное число в модуле)
+int norma(matrix m) {
+    int max_el = abs(m.values[0][0]);
+    for (int row_index = 1; row_index < m.nRows; ++row_index) {
+        for (int col_index = 0; col_index < m.nCols; ++col_index) {
+            if (abs(m.values[row_index][col_index]) > max_el)
+                max_el = abs(m.values[row_index][col_index]);
+        }
+    }
+    return max_el;
+}
+
+//возвращает матрицы с минимальной нормой
+void printMatrixWithMinNorma(matrix *ms, int nMatrix) {
+    int min_norma = norma(ms[0]);
+    for (int i = 1; i < nMatrix; ++i) {
+        if (norma(ms[i]) < min_norma)
+            min_norma = norma(ms[i]);
+    }
+
+    for (int i = 0; i < nMatrix; ++i) {
+        if (norma(ms[i]) == min_norma)
+            outputMatrix(ms[i]);
+    }
+}
+
+
+
+
 
 
 //Тесты
@@ -937,6 +966,56 @@ void test_printMatrixWithMaxZeroRows() {
     freeMemMatrix(&m5);
 }
 
+void test_printMatrixWithMinNorma() {
+    matrix m01 = createMatrixFromArray(
+            (int[])
+                    {
+                            1, -2, 3,
+                            -4, 5, 6,
+                            1, -8, 1
+                    },
+            3, 3
+    );
+
+    matrix m02 = createMatrixFromArray(
+            (int[])
+                    {
+                            0, 0, 0,
+                            1, 4, -7,
+                            -10, 8, -10
+                    },
+            3, 3
+    );
+
+    matrix m03 = createMatrixFromArray(
+            (int[])
+                    {
+                            0, 0, 0,
+                            0, 0, 0,
+                            1, 2, 10
+                    },
+            3, 3
+    );
+
+    matrix m04 = createMatrixFromArray(
+            (int[])
+                    {
+                            3, 0, 0,
+                            0, 0, 3,
+                            0, 0, 8
+                    },
+            3, 3
+    );
+
+
+    matrix ms1[] = {m01, m02, m03, m04};
+
+    printMatrixWithMinNorma(ms1, 4);
+    freeMemMatrix(&m01);
+    freeMemMatrix(&m02);
+    freeMemMatrix(&m03);
+    freeMemMatrix(&m04);
+}
 
 
 
@@ -957,6 +1036,7 @@ void all_test(){
     test_swapPenultimateRow();
     test_countNonDescendingRowsMatrices();
     test_printMatrixWithMaxZeroRows();
+    test_printMatrixWithMinNorma();
 }
 
 
