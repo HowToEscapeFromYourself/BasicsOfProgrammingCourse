@@ -363,6 +363,40 @@ void printMatrixWithMinNorma(matrix *ms, int nMatrix) {
     }
 }
 
+//возвращает количество особых элементов в строке
+int isSpecialElement(int *a, int n) {
+    int count = 0;
+    for (int i = 0; i < n; ++i) {
+        int count_true = 1;
+        int special_el = a[i];
+        for (int j = 0; j < i; ++j) {
+            if (special_el <= a[j]) {
+                count_true = 0;
+                break;
+            }
+        }
+        for (int k = i+1; k < n; ++k) {
+            if (special_el >= a[k]) {
+                count_true = 0;
+                break;
+            }
+        }
+        if (count_true == 1)
+            count++;
+    }
+    return count;
+}
+
+//возвращает количество особых элементов матрицы
+int getNSpecialElement2(matrix m) {
+    int count = 0;
+    for (int row_index = 0; row_index < m.nRows; ++row_index) {
+        count+=isSpecialElement(m.values[row_index], m.nCols);
+    }
+    return count;
+}
+
+
 
 
 
@@ -1017,6 +1051,32 @@ void test_printMatrixWithMinNorma() {
     freeMemMatrix(&m04);
 }
 
+void test_getNSpecialElement2() {
+    matrix m1 = createMatrixFromArray(
+            (int[])
+                    {
+                            2, 3, 5, 5, 4,
+                            6, 2, 3, 8, 12,
+                            12, 12, 2, 1, 2
+                    },
+            3, 5
+    );
+
+    matrix m2 = createMatrixFromArray(
+            (int[])
+                    {
+                            2, 3, 5, 5, 4,
+                            6, 2, 9, 10, 12,
+                            1, 3, 2, 4, 5
+                    },
+            3, 5
+    );
+    assert(getNSpecialElement2(m1) == 4);
+    assert(getNSpecialElement2(m2) == 8);
+    freeMemMatrix(&m1);
+    freeMemMatrix(&m2);
+}
+
 
 
 void all_test(){
@@ -1037,6 +1097,7 @@ void all_test(){
     test_countNonDescendingRowsMatrices();
     test_printMatrixWithMaxZeroRows();
     test_printMatrixWithMinNorma();
+    test_getNSpecialElement2();
 }
 
 
