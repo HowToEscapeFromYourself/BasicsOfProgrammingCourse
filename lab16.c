@@ -396,7 +396,46 @@ int getNSpecialElement2(matrix m) {
     return count;
 }
 
+//возвращает скалярное произведение 2-х векторов
+double getScalarProduct(int *a, int *b, int n) {
+    double scalar = 0;
+    for (int i = 0; i < n; ++i) {
+            scalar += a[i]*b[i];
+    }
+    return scalar;
+}
 
+//возвращает длину вектора
+double getVectorLength(int *a, int n) {
+    double len = 0;
+    for (int i = 0; i < n; ++i) {
+        len += a[i]*a[i];
+    }
+    len = sqrt(len);
+    return len;
+}
+
+//возвращает косинус угла между 2-х векторов от -1 до 1
+double getCosine(int *a, int *b, int n) {
+    double scalar = getScalarProduct(a, b, n);
+    double len_a_b = getVectorLength(a, n) * getVectorLength(b, n);
+    double cosine3 = scalar/len_a_b;
+    return cosine3;
+}
+
+//возвращает индекс вектора, образующий максимальный угол с данным вектором b
+int getVectorIndexWithMaxAngle(matrix m, int *b) {
+    double min_cos = 1;
+    int index = 0;
+    for (int row_index = 0; row_index < m.nRows; ++row_index) {
+        double cos = fabs(getCosine(m.values[row_index], b, m.nCols));
+        if (cos < min_cos) {
+            min_cos = cos;
+            index = row_index;
+        }
+    }
+    return index;
+}
 
 
 
@@ -1077,6 +1116,34 @@ void test_getNSpecialElement2() {
     freeMemMatrix(&m2);
 }
 
+void test_getVectorIndexWithMaxAngle() {
+    matrix m1 = createMatrixFromArray(
+            (int[])
+                    {
+                            2, 3, 5, 5, 4,
+                            6, 2, 3, 8, 12,
+                            12, 12, 2, 1, 2
+                    },
+            3, 5
+    );
+    int b1[] = {2, 4, 1, 7, 8};
+
+    matrix m2 = createMatrixFromArray(
+            (int[])
+                    {
+                            2, 4, 5, 5, 4,
+                            0, 2, 0, 8, 0,
+                            2, 42, 2, 48, 2
+                    },
+            3, 5
+    );
+    int b2[] = {29, 4, 11, 7, 18};
+
+    assert(getVectorIndexWithMaxAngle(m1, b1) == 2);
+    assert(getVectorIndexWithMaxAngle(m2, b2) == 1);
+    freeMemMatrix(&m1);
+    freeMemMatrix(&m2);
+}
 
 
 void all_test(){
@@ -1098,6 +1165,7 @@ void all_test(){
     test_printMatrixWithMaxZeroRows();
     test_printMatrixWithMinNorma();
     test_getNSpecialElement2();
+    test_getVectorIndexWithMaxAngle();
 }
 
 
