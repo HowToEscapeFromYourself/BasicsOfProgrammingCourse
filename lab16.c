@@ -1215,8 +1215,3 @@ void all_test(){
 
 
 
-
-int main() {
-    all_test();
-    return 0;
-}

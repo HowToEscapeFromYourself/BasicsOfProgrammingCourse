@@ -63,19 +63,26 @@ build CMakeFiles/data_structures1.dir/matrix/matrix.c.obj: C_COMPILER__data_stru
   OBJECT_DIR = CMakeFiles\data_structures1.dir
   OBJECT_FILE_DIR = CMakeFiles\data_structures1.dir\matrix
 
-build CMakeFiles/data_structures1.dir/lab16.c.obj: C_COMPILER__data_structures1_unscanned_Debug C$:/Users/Anastasia/course/libs/data_structures1/lab16.c || cmake_object_order_depends_target_data_structures1
-  DEP_FILE = CMakeFiles\data_structures1.dir\lab16.c.obj.d
-  FLAGS = -g -std=gnu11 -fdiagnostics-color=always
-  INCLUDES = -IC:/Users/Anastasia/course/libs/data_structures1/vector
-  OBJECT_DIR = CMakeFiles\data_structures1.dir
-  OBJECT_FILE_DIR = CMakeFiles\data_structures1.dir
-
 build CMakeFiles/data_structures1.dir/algorithms/algorithms.c.obj: C_COMPILER__data_structures1_unscanned_Debug C$:/Users/Anastasia/course/libs/data_structures1/algorithms/algorithms.c || cmake_object_order_depends_target_data_structures1
   DEP_FILE = CMakeFiles\data_structures1.dir\algorithms\algorithms.c.obj.d
   FLAGS = -g -std=gnu11 -fdiagnostics-color=always
   INCLUDES = -IC:/Users/Anastasia/course/libs/data_structures1/vector
   OBJECT_DIR = CMakeFiles\data_structures1.dir
   OBJECT_FILE_DIR = CMakeFiles\data_structures1.dir\algorithms
+
+build CMakeFiles/data_structures1.dir/string/tasks/srting.c.obj: C_COMPILER__data_structures1_unscanned_Debug C$:/Users/Anastasia/course/libs/data_structures1/string/tasks/srting.c || cmake_object_order_depends_target_data_structures1
+  DEP_FILE = CMakeFiles\data_structures1.dir\string\tasks\srting.c.obj.d
+  FLAGS = -g -std=gnu11 -fdiagnostics-color=always
+  INCLUDES = -IC:/Users/Anastasia/course/libs/data_structures1/vector
+  OBJECT_DIR = CMakeFiles\data_structures1.dir
+  OBJECT_FILE_DIR = CMakeFiles\data_structures1.dir\string\tasks
+
+build CMakeFiles/data_structures1.dir/lab17.c.obj: C_COMPILER__data_structures1_unscanned_Debug C$:/Users/Anastasia/course/libs/data_structures1/lab17.c || cmake_object_order_depends_target_data_structures1
+  DEP_FILE = CMakeFiles\data_structures1.dir\lab17.c.obj.d
+  FLAGS = -g -std=gnu11 -fdiagnostics-color=always
+  INCLUDES = -IC:/Users/Anastasia/course/libs/data_structures1/vector
+  OBJECT_DIR = CMakeFiles\data_structures1.dir
+  OBJECT_FILE_DIR = CMakeFiles\data_structures1.dir
 
 
 # =============================================================================
@@ -85,7 +92,7 @@ build CMakeFiles/data_structures1.dir/algorithms/algorithms.c.obj: C_COMPILER__d
 #############################################
 # Link the executable data_structures1.exe
 
-build data_structures1.exe: C_EXECUTABLE_LINKER__data_structures1_Debug CMakeFiles/data_structures1.dir/vector/vector.c.obj CMakeFiles/data_structures1.dir/matrix/matrix.c.obj CMakeFiles/data_structures1.dir/lab16.c.obj CMakeFiles/data_structures1.dir/algorithms/algorithms.c.obj
+build data_structures1.exe: C_EXECUTABLE_LINKER__data_structures1_Debug CMakeFiles/data_structures1.dir/vector/vector.c.obj CMakeFiles/data_structures1.dir/matrix/matrix.c.obj CMakeFiles/data_structures1.dir/algorithms/algorithms.c.obj CMakeFiles/data_structures1.dir/string/tasks/srting.c.obj CMakeFiles/data_structures1.dir/lab17.c.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\data_structures1.dir
