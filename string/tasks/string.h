@@ -48,5 +48,9 @@ void removeNonLetters(char *s);
 //возвращает указатель на конец строки
 char* getEndOfString(char *s);
 
+//преобразовает строку, оставляя только один символ в каждой последовательности
+//подряд идущих одинаковых символов
+void removeAdjacentEqualLetters(char *s);
+
 
 #endif //DATA_STRUCTURES1_STRING_H

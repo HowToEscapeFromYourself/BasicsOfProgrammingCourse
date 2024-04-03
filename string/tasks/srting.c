@@ -87,4 +87,20 @@ void removeNonLetters(char *s) {
     *destination = '\0';
 }
 
+void removeAdjacentEqualLetters(char *s) {
+    char *endSource = getEndOfString(s);
+    char *reader = s;
+    char *writer = s;
+    while (reader != endSource) {
+        char *next = reader+1;
+        if (*next != *reader) {
+            *writer = *reader;
+            writer++;
+        }
+
+        reader++;
+    }
+    *writer = '\0';
+}
+
 
