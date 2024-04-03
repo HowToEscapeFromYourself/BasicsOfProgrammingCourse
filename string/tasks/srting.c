@@ -74,3 +74,17 @@ char* copyIfReverse(char *rbeginSource, const char *rendSource,
     }
 }
 
+//18 лаба
+
+char* getEndOfString(char *s) {
+    char *endOfString = s + strlen_(s);
+    return endOfString;
+}
+
+void removeNonLetters(char *s) {
+    char *endSource = getEndOfString(s);
+    char *destination = copyIf(s, endSource, s, isgraph);
+    *destination = '\0';
+}
+
+

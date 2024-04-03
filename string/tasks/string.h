@@ -40,4 +40,13 @@ char* copyIf(char *beginSource, const char *endSource,
 char* copyIfReverse(char *rbeginSource, const char *rendSource,
                     char *beginDestination, int (*f)(int));
 
+
+
+//удаляет из строки все пробельные символы
+void removeNonLetters(char *s);
+
+//возвращает указатель на конец строки
+char* getEndOfString(char *s);
+
+
 #endif //DATA_STRUCTURES1_STRING_H

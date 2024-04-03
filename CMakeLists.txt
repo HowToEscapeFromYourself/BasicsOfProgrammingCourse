@@ -14,4 +14,4 @@ add_executable(data_structures1
         algorithms/algorithms.h
         string/tasks/string.h
         string/tasks/srting.c
-        lab17.c)
+        lab18.c)
