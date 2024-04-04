@@ -1,6 +1,9 @@
 
 #ifndef DATA_STRUCTURES1_STRING_H
 #define DATA_STRUCTURES1_STRING_H
+#define MAX_STRING_SIZE 100
+#define MAX_N_WORDS_IN_STRING 100
+#define MAX_WORD_SIZE 20
 #include <stdlib.h>
 
 
@@ -52,5 +55,22 @@ char* getEndOfString(char *s);
 //подряд идущих одинаковых символов
 void removeAdjacentEqualLetters(char *s);
 
+typedef struct WordDescriptor {
+    char *begin; // позиция начала слова
+    char *end; // позиция первого символа, после последнего символа слова
+} WordDescriptor;
+
+//возвращает 0, если не было считано слово, и 1 если было
+int getWord(char *beginSearch, WordDescriptor *word);
+
+//преобразовает строку таким образом, чтобы цифры каждого слова были перенесены
+// в начало слова и изменен порядок следования цифр в слове на обратный
+void digitToStart(WordDescriptor word);
+
+//считывает слово с конца строки
+int getWordReverse(char *rbegin, char *rend, WordDescriptor *word);
+
+//преобразовывет строку, обратив каждое слово этой строки
+void getWordsInStringReverse(char *s);
 
 #endif //DATA_STRUCTURES1_STRING_H

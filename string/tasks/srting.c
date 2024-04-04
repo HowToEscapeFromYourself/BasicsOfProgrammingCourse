@@ -1,6 +1,8 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <memory.h>
+#include "string.h"
+#include <stdbool.h>
 
 size_t strlen_(const char *begin) {
     char *end = begin;
@@ -97,10 +99,53 @@ void removeAdjacentEqualLetters(char *s) {
             *writer = *reader;
             writer++;
         }
-
         reader++;
     }
     *writer = '\0';
 }
 
 
+int getWord(char *beginSearch, WordDescriptor *word) {
+    word->begin = findNonSpace(beginSearch);
+    if (*word->begin == '\0')
+        return 0;
+    word->end = findSpace(word->begin);
+    return 1;
+}
+
+char _stringBuffer[MAX_STRING_SIZE + 1];
+
+void digitToStart(WordDescriptor word) {
+    char *endStringBuffer = copy_(word.begin, word.end,
+                                 _stringBuffer);
+
+    char *recPosition = copyIfReverse(endStringBuffer - 1,
+                                      _stringBuffer - 1,
+                                      word.begin, isdigit);
+    copyIf(_stringBuffer, endStringBuffer, recPosition, isalpha);
+}
+
+int getWordReverse(char *rbegin, char *rend, WordDescriptor *word) {
+    word->end = findNonSpaceReverse(rbegin, rend);
+    if (word->end == rend)
+        return 0;
+    word->begin = findSpaceReverse(word->end, rend)+1;
+    word->end++;
+    return 1;
+}
+
+void getWordsInStringReverse(char *s) {
+    WordDescriptor word;
+    char* real_end = s;
+    while (getWord(real_end, &word)) {
+        real_end = word.end;
+        word.end--;
+        while (word.begin < word.end) {
+            char sim = *word.begin;
+            *word.begin = *word.end;
+            *word.end = sim;
+            word.begin++;
+            word.end--;
+        }
+    }
+}
