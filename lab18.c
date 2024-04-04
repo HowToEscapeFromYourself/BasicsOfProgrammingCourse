@@ -46,12 +46,25 @@ void test_getWordsInStringReverse(){
                  144);
 }
 
+void test_changNumberToSpacese() {
+    char s[100] = "2s 3d1r";
+    changNumberToSpaces(s);
+    assertString("  s    d r",
+                 s,
+                 "string.h",
+                 "changNumberToSpacese",
+                 143);
+}
+
+
+
 
 
 void all_test(){
     test_removeAdjacentEqualLetters();
     test_getWordReverse();
     test_getWordsInStringReverse();
+    test_changNumberToSpacese();
 
 }
 

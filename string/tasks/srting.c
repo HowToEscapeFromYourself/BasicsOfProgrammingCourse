@@ -3,6 +3,7 @@
 #include <memory.h>
 #include "string.h"
 #include <stdbool.h>
+#include <stdio.h>
 
 size_t strlen_(const char *begin) {
     char *end = begin;
@@ -147,5 +148,24 @@ void getWordsInStringReverse(char *s) {
             word.begin++;
             word.end--;
         }
+    }
+}
+
+void changNumberToSpaces(char *s) {
+    char* writer = s;
+    copy_(s, getEndOfString(s)+1, _stringBuffer);
+    char* reader = _stringBuffer;
+    while (*reader) {
+        if (isdigit(*reader)) {
+            int digit = *reader-'0';
+            for (int i = 0; i < digit; ++i) {
+                *writer = ' ';
+                writer++;
+            }
+        } else {
+            *writer = *reader;
+            writer++;
+        }
+        reader++;
     }
 }

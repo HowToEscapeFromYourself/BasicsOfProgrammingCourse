@@ -73,4 +73,7 @@ int getWordReverse(char *rbegin, char *rend, WordDescriptor *word);
 //преобразовывет строку, обратив каждое слово этой строки
 void getWordsInStringReverse(char *s);
 
+//преобразовывет строку, заменяя каждую цифру соответствующим ей числом пробелов
+void changNumberToSpaces(char *s);
+
 #endif //DATA_STRUCTURES1_STRING_H
