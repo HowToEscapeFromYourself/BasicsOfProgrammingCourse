@@ -67,7 +67,12 @@ void test_replace(){
                  122);
 }
 
-
+void test_arrangeWords(){
+    char s1[] = "abc abc cde efj";
+    char s2[] = "abc cde efj abc";
+    assert(arrangeWords(s1));
+    assert(!arrangeWords(s2));
+}
 
 void all_test(){
     test_removeAdjacentEqualLetters();
@@ -75,7 +80,7 @@ void all_test(){
     test_getWordsInStringReverse();
     test_changNumberToSpacese();
     test_replace();
-
+    test_arrangeWords();
 }
 
 

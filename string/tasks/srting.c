@@ -226,6 +226,23 @@ void replace(char *source, char *w1, char *w2) {
     *recPtr = '\0';
 }
 
+bool arrangeWords(char *s) {
+    WordDescriptor word1;
+    getWord(s, &word1);
+    WordDescriptor word2;
+    int order = 0;
+    while (getWord(word1.end, &word2)) {
+        if (order == 0)
+            order = wordCmp(word1, word2);
+        else {
+            int new_order = wordCmp(word1, word2);
+            if ((order != new_order) && (new_order != 0))
+                return false;
+        }
+            word1 = word2;
+    }
+    return true;
+}
 
 
 

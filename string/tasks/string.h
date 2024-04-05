@@ -5,6 +5,7 @@
 #define MAX_N_WORDS_IN_STRING 100
 #define MAX_WORD_SIZE 20
 #include <stdlib.h>
+#include <stdbool.h>
 
 
 //возвращает длину строки
@@ -87,5 +88,8 @@ char* wordCpy(char *dst, WordDescriptor src);
 
 //заменяет все вхождения слова w1 на слово w2
 void replace(char *source, char *w1, char *w2);
+
+//проверяет упорядочены ли лексикографически слова данного предложения
+bool arrangeWords(char *s);
 
 #endif //DATA_STRUCTURES1_STRING_H
