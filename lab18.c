@@ -56,7 +56,16 @@ void test_changNumberToSpacese() {
                  143);
 }
 
-
+void test_replace(){
+    char s[MAX_STRING_SIZE] = "I hate this lad";
+    char out[] = "I love this lad";
+    replace(s, "hate", "love");
+    assertString(out,
+                 s,
+                 "string.h",
+                 "replace",
+                 122);
+}
 
 
 
@@ -65,6 +74,7 @@ void all_test(){
     test_getWordReverse();
     test_getWordsInStringReverse();
     test_changNumberToSpacese();
+    test_replace();
 
 }
 

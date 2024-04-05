@@ -162,10 +162,74 @@ void changNumberToSpaces(char *s) {
                 *writer = ' ';
                 writer++;
             }
+
         } else {
             *writer = *reader;
             writer++;
         }
+
         reader++;
     }
 }
+
+
+int wordLen(WordDescriptor wd){
+    return wd.end - wd.begin;
+}
+
+int wordCmp(WordDescriptor w1, WordDescriptor w2){
+    int w1len = wordLen(w1);
+    int w2len = wordLen(w2);
+
+    if(w1len == w2len){
+        return memcmp(w1.begin, w2.begin, w1len); //0
+    } else{
+        if(w1len > w2len) {
+            int res = memcmp(w1.begin, w2.begin, w2len);
+            return res != 0 ? res : 1;
+        } else{
+            int res = memcmp(w1.begin, w2.begin, w1len);
+            return res != 0 ? res : -1;
+        }
+    }
+}
+
+char* wordCpy(char *dst, WordDescriptor src){
+    return copy_(src.begin, src.end, dst);
+}
+
+void replace(char *source, char *w1, char *w2) {
+    size_t w1Size = strlen_(w1);
+    size_t w2Size = strlen_(w2);
+    WordDescriptor word1 = {w1, w1 + w1Size};
+    WordDescriptor word2 = {w2, w2 + w2Size};
+    char *readPtr, *recPtr;
+    if (w1Size >= w2Size) {
+        readPtr = source;
+        recPtr = source;
+    } else {
+        copy_(source, getEndOfString(source), _stringBuffer);
+        readPtr = _stringBuffer;
+        recPtr = source;
+    }
+    WordDescriptor word;
+    while (getWord(readPtr, &word)) {
+        if (!wordCmp(word, word1))
+            recPtr = wordCpy(recPtr, word2);
+        else
+            recPtr = wordCpy(recPtr, word);
+        *recPtr = ' ';
+        recPtr++;
+        readPtr = word.end;
+    }
+    recPtr--;
+    *recPtr = '\0';
+}
+
+
+
+
+
+
+
+

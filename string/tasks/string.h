@@ -76,4 +76,16 @@ void getWordsInStringReverse(char *s);
 //преобразовывет строку, заменяя каждую цифру соответствующим ей числом пробелов
 void changNumberToSpaces(char *s);
 
+//возвращает длину строки
+int wordLen(WordDescriptor wd);
+
+//сравнивает два слова, возвращает 0, если слова равны
+int wordCmp(WordDescriptor w1, WordDescriptor w2);
+
+//копирует слово в строку dst и возвращает указатель на след. фрагмент памяти
+char* wordCpy(char *dst, WordDescriptor src);
+
+//заменяет все вхождения слова w1 на слово w2
+void replace(char *source, char *w1, char *w2);
+
 #endif //DATA_STRUCTURES1_STRING_H
