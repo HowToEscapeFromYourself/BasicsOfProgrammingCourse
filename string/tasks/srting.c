@@ -267,7 +267,26 @@ void getBagOfWords(BagOfWords *bag, char *s) {
     }
 }
 
-int countPalindromes(char *c) {
+int countPalindromes(char *s) {
+    int counter = 0;
+    WordDescriptor word = {s,s};
+    while (*word.end!='\0') {
+        while (*word.end!=',' && *word.end!='\0') {
+            word.end++;
+        }
+        s = word.end--;
+        while (word.begin < word.end && *word.begin == *word.end) {
+            word.begin++;
+            word.end--;
+        }
+        if (word.begin >= word.end)
+            counter++;
+        if (*s != '\0')
+            word.begin=word.end=++s;
+        else
+            word.end = s;
+    }
+    return counter;
 
 }
 

@@ -79,6 +79,11 @@ void test_getBagOfWords() {
     getBagOfWords(&_bag, s1);
 }
 
+void test_countPalindromes() {
+    char s1[] = "cffc,tee,wefsfew,req,abccba";
+    assert(countPalindromes(s1)==3);
+}
+
 
 void all_test(){
     test_removeAdjacentEqualLetters();
@@ -88,6 +93,7 @@ void all_test(){
     test_replace();
     test_arrangeWords();
     test_getBagOfWords();
+    test_countPalindromes();
 }
 
 

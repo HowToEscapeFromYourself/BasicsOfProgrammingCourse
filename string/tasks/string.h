@@ -107,6 +107,7 @@ void printWord(WordDescriptor word);
 //выводит слова данной строки в обратном порядке по одному в строке экрана
 void getBagOfWords(BagOfWords *bag, char *s);
 
-
+//возвращает количество слов-палиндромов
+int countPalindromes(char *s);
 
 #endif //DATA_STRUCTURES1_STRING_H
