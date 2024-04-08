@@ -244,6 +244,28 @@ bool arrangeWords(char *s) {
     return true;
 }
 
+void printWord(WordDescriptor word) {
+    char* ptr = word.begin;
+    while (ptr !=word.end) {
+        putchar(*ptr);
+        ptr++;
+    }
+}
+
+BagOfWords _bag;
+BagOfWords _bag2;
+
+void getBagOfWords(BagOfWords *bag, char *s) {
+    WordDescriptor word1 = {s,s};
+    bag->size = 0;
+    while (getWord(word1.end, &word1)) {
+        bag->words [bag->size++] = word1;
+    }
+    for (int i = bag->size-1; i >= 0 ; --i) {
+        printWord(bag->words[i]);
+        putchar('\n');
+    }
+}
 
 
 

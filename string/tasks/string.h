@@ -8,6 +8,7 @@
 #include <stdbool.h>
 
 
+
 //возвращает длину строки
 size_t strlen_(const char *begin);
 
@@ -91,5 +92,21 @@ void replace(char *source, char *w1, char *w2);
 
 //проверяет упорядочены ли лексикографически слова данного предложения
 bool arrangeWords(char *s);
+
+typedef struct BagOfWords {
+    WordDescriptor words[MAX_N_WORDS_IN_STRING];
+    size_t size;
+} BagOfWords;
+
+extern BagOfWords _bag;
+extern BagOfWords _bag2;
+
+//выводит слово
+void printWord(WordDescriptor word);
+
+//выводит слова данной строки в обратном порядке по одному в строке экрана
+void getBagOfWords(BagOfWords *bag, char *s);
+
+
 
 #endif //DATA_STRUCTURES1_STRING_H

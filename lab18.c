@@ -74,6 +74,12 @@ void test_arrangeWords(){
     assert(!arrangeWords(s2));
 }
 
+void test_getBagOfWords() {
+    char s1[] = "I love this lad";
+    getBagOfWords(&_bag, s1);
+}
+
+
 void all_test(){
     test_removeAdjacentEqualLetters();
     test_getWordReverse();
@@ -81,6 +87,7 @@ void all_test(){
     test_changNumberToSpacese();
     test_replace();
     test_arrangeWords();
+    test_getBagOfWords();
 }
 
 
