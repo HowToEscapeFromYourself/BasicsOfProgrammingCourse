@@ -84,6 +84,19 @@ void test_countPalindromes() {
     assert(countPalindromes(s1)==3);
 }
 
+void test_mergeStr(){
+    char s1[] = "I to";
+    char s2[] = "want go the sea";
+    char s3[MAX_STRING_SIZE];
+    mergeStr(s1, s2, s3);
+    char out[] = "I want to go the sea";
+    replace(s3, "hate", "love");
+    assertString(out,
+                 s3,
+                 "string.h",
+                 "mergeStr",
+                 122);
+}
 
 void all_test(){
     test_removeAdjacentEqualLetters();
@@ -94,6 +107,7 @@ void all_test(){
     test_arrangeWords();
     test_getBagOfWords();
     test_countPalindromes();
+    test_mergeStr();
 }
 
 

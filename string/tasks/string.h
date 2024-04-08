@@ -110,4 +110,7 @@ void getBagOfWords(BagOfWords *bag, char *s);
 //возвращает количество слов-палиндромов
 int countPalindromes(char *s);
 
+//возвращает строку out, в которой чередуются слова первой и второй строки
+void mergeStr(char* s1, char* s2, char* out);
+
 #endif //DATA_STRUCTURES1_STRING_H
