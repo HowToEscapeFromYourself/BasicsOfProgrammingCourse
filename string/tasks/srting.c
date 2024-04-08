@@ -267,7 +267,9 @@ void getBagOfWords(BagOfWords *bag, char *s) {
     }
 }
 
+int countPalindromes(char *c) {
 
+}
 
 
 
