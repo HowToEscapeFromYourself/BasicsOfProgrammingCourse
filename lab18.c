@@ -98,6 +98,17 @@ void test_mergeStr(){
                  122);
 }
 
+void test_getReverseSort() {
+    char s[] = "I want to go the sea";
+    char out[] = "sea the go to want I";
+    getReverseSort(s);
+    assertString(out,
+                 s,
+                 "string.h",
+                 "getReverseSort",
+                 122);
+}
+
 void all_test(){
     test_removeAdjacentEqualLetters();
     test_getWordReverse();
@@ -108,6 +119,7 @@ void all_test(){
     test_getBagOfWords();
     test_countPalindromes();
     test_mergeStr();
+    test_getReverseSort();
 }
 
 

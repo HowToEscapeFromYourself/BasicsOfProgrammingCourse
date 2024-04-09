@@ -113,4 +113,10 @@ int countPalindromes(char *s);
 //возвращает строку out, в которой чередуются слова первой и второй строки
 void mergeStr(char* s1, char* s2, char* out);
 
+//копирует строку
+void  strcpy_(char *dst, char *src);
+
+//преобразовает строку, изменив порядок следования слов в строке на обратный
+void getReverseSort(char *s);
+
 #endif //DATA_STRUCTURES1_STRING_H

@@ -313,6 +313,24 @@ void mergeStr(char* s1, char* s2, char* out) {
     *out = '\0';
 }
 
+void  strcpy_(char *dst, char *src){
+    while (*src){
+        *dst = *src;
+        dst++, src++;
+    }
+}
+
+void getReverseSort(char *s) {
+    strcpy_(_stringBuffer, s);
+    WordDescriptor word = {getEndOfString(_stringBuffer), NULL};
+    while (getWordReverse(word.begin-1, _stringBuffer-1, &word)) {
+        s = wordCpy(s, word);
+        *s = ' ';
+        s++;
+    }
+    s--;
+    *s = '\0';
+}
 
 
 
