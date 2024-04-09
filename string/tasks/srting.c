@@ -364,6 +364,7 @@ void wordDescriptorToString(WordDescriptor word, char *destination) {
     *destination = 0;
 }
 
+
 WordDescriptor lastWordInFirstStringInSecondString(char* s1, char* s2) {
     getBagOfWords(&_bag, s1);
     getBagOfWords(&_bag2, s2);
