@@ -119,4 +119,25 @@ void  strcpy_(char *dst, char *src);
 //преобразовает строку, изменив порядок следования слов в строке на обратный
 void getReverseSort(char *s);
 
+typedef enum WordBeforeFirstWordWithAReturnCode {
+    FIRST_WORD_WITH_A,
+    NOT_FOUND_A_WORD_WITH_A,
+    WORD_FOUND,
+    EMPTY_STRING
+} WordBeforeFirstWordWithAReturnCode;
+
+//проверяет есть ли буква с в слове
+bool isAlphaInWord(WordDescriptor *word, char c);
+
+//возвращает слово данной строки, предшествующее первому из слов, содержащих
+// букву "а"
+WordBeforeFirstWordWithAReturnCode getWordBeforeFirstWordWithA(
+        char *s, WordDescriptor *w);
+
+//копирует слово в строку и ставит нолик
+void wordDescriptorToString(WordDescriptor word, char *destination);
+
+//oпределяет последнее из слов первой строки, которое есть во второй строке
+WordDescriptor lastWordInFirstStringInSecondString(char* s1, char* s2);
+
 #endif //DATA_STRUCTURES1_STRING_H

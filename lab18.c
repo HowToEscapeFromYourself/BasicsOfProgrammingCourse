@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <memory.h>
 #include <ctype.h>
-
+#define ASSERT_STRING(expected, got) assertString(expected, got, __FILE__, __FUNCTION__, __LINE__)
 
 
 void assertString(const char* expected, char* got,
@@ -109,6 +109,54 @@ void test_getReverseSort() {
                  122);
 }
 
+void testAll_getWordBeforeFirstWordWithA() {
+    WordDescriptor word;
+    char s1[] = "";
+    assert(
+            getWordBeforeFirstWordWithA(s1, &word)
+            == EMPTY_STRING
+    );
+    char s2[] = "ABC";
+    assert(
+            getWordBeforeFirstWordWithA(s2, &word)
+            == FIRST_WORD_WITH_A
+    );
+    char s3[] = "BC A";
+    assert(
+            getWordBeforeFirstWordWithA(s3, &word)
+            == WORD_FOUND
+    );
+    char got[MAX_WORD_SIZE];
+    wordCpy(got, word);
+    got[word.end - word.begin] = '\0';
+    ASSERT_STRING("BC", got);
+
+    char s4[] = "B Q WE YR OW IUWR";
+    assert(getWordBeforeFirstWordWithA(s4, &word) ==
+           NOT_FOUND_A_WORD_WITH_A);
+}
+
+void testAll_lastWordInFirstStringInSecondString() {
+    WordDescriptor word;
+    char s1[] = "";
+    char s12[] = "ds sdf";
+    assert(
+            lastWordInFirstStringInSecondString(s1, s12).begin == NULL
+    );
+    char s2[] = "ab gd ae";
+    char s22[] = "re ab wq";
+    word = lastWordInFirstStringInSecondString(s2, s22);
+    char got[MAX_WORD_SIZE];
+    wordDescriptorToString(word, got);
+    ASSERT_STRING("ab", got);
+
+    char s3[] = "";
+    assert(
+            lastWordInFirstStringInSecondString(s3, s3).begin == NULL
+    );
+}
+
+
 void all_test(){
     test_removeAdjacentEqualLetters();
     test_getWordReverse();
@@ -120,6 +168,8 @@ void all_test(){
     test_countPalindromes();
     test_mergeStr();
     test_getReverseSort();
+    testAll_getWordBeforeFirstWordWithA();
+    testAll_lastWordInFirstStringInSecondString();
 }
 
 
