@@ -143,4 +143,8 @@ WordDescriptor lastWordInFirstStringInSecondString(char* s1, char* s2);
 //oпределяет, есть ли в данной строке одинаковые слова
 bool haveEqualWords(char* s);
 
+//определяет, есть ли в данной строке пара слов, составленных из одинакового
+// набора букв
+bool haveWordWithEqualSymbolSet(char* s);
+
 #endif //DATA_STRUCTURES1_STRING_H

@@ -163,6 +163,12 @@ void test_haveEqualWords(){
     assert(!haveEqualWords(s2));
 }
 
+void test_haveWordWithEqualSymbolSet(){
+    char s1[] = "I want to go the sea ntaw";
+    char s2[] = "I love this lad";
+    assert(haveWordWithEqualSymbolSet(s1));
+    assert(!haveWordWithEqualSymbolSet(s2));
+}
 
 
 void all_test(){
@@ -179,6 +185,7 @@ void all_test(){
     testAll_getWordBeforeFirstWordWithA();
     testAll_lastWordInFirstStringInSecondString();
     test_haveEqualWords();
+    test_haveWordWithEqualSymbolSet();
 }
 
 
