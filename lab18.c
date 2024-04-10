@@ -187,6 +187,25 @@ void test_deleteEqualLastWord() {
     ASSERT_STRING("", s4);
 }
 
+void testAll_getFirstWordS1InS2() {
+    WordDescriptor word;
+    char s1[] = "ab gd ae";
+    char s12[] = "re wq ab";
+    assert(
+            getFirstWordS1InS2(s1, s12).begin == NULL
+    );
+    char s2[] = "gd ab ae";
+    char s22[] = "re wq ab";
+    word = getFirstWordS1InS2(s2, s22);
+    char got[MAX_WORD_SIZE];
+    wordDescriptorToString(word, got);
+    ASSERT_STRING("gd", got);
+
+    char s3[] = "";
+    assert(
+            getFirstWordS1InS2(s3, s3).begin == NULL
+    );
+}
 
 
 
@@ -206,6 +225,7 @@ void all_test(){
     test_haveEqualWords();
     test_haveWordWithEqualSymbolSet();
     test_deleteEqualLastWord();
+    testAll_getFirstWordS1InS2();
 }
 
 

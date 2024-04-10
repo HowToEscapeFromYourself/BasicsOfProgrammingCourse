@@ -150,4 +150,7 @@ bool haveWordWithEqualSymbolSet(char* s);
 //получает строку из слов данной строки, которые отличны от последнего слова
 void deleteEqualLastWord(char* s);
 
+//возвращает первое слово строки s1 котрое есть в строке s2
+WordDescriptor getFirstWordS1InS2(char* s1, char* s2);
+
 #endif //DATA_STRUCTURES1_STRING_H
