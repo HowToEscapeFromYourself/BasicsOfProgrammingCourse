@@ -140,4 +140,7 @@ void wordDescriptorToString(WordDescriptor word, char *destination);
 //oпределяет последнее из слов первой строки, которое есть во второй строке
 WordDescriptor lastWordInFirstStringInSecondString(char* s1, char* s2);
 
+//oпределяет, есть ли в данной строке одинаковые слова
+bool haveEqualWords(char* s);
+
 #endif //DATA_STRUCTURES1_STRING_H

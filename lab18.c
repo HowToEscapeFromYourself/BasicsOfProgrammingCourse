@@ -156,6 +156,14 @@ void testAll_lastWordInFirstStringInSecondString() {
     );
 }
 
+void test_haveEqualWords(){
+    char s1[] = "I want to go the sea want";
+    char s2[] = "I love this lad";
+    assert(haveEqualWords(s1));
+    assert(!haveEqualWords(s2));
+}
+
+
 
 void all_test(){
     test_removeAdjacentEqualLetters();
@@ -170,6 +178,7 @@ void all_test(){
     test_getReverseSort();
     testAll_getWordBeforeFirstWordWithA();
     testAll_lastWordInFirstStringInSecondString();
+    test_haveEqualWords();
 }
 
 
