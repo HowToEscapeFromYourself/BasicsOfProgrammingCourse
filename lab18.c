@@ -170,6 +170,25 @@ void test_haveWordWithEqualSymbolSet(){
     assert(!haveWordWithEqualSymbolSet(s2));
 }
 
+void test_deleteEqualLastWord() {
+    char s1[] = "word1 word2 word3 word2";
+    char s2[] = "word4 word5 word5";
+    char s3[] = "";
+    char s4[] = "word5";
+
+    deleteEqualLastWord(s1);
+    deleteEqualLastWord(s2);
+    deleteEqualLastWord(s3);
+    deleteEqualLastWord(s4);
+
+    ASSERT_STRING("word1 word3", s1);
+    ASSERT_STRING("word4", s2);
+    ASSERT_STRING("", s3);
+    ASSERT_STRING("", s4);
+}
+
+
+
 
 void all_test(){
     test_removeAdjacentEqualLetters();
@@ -186,6 +205,7 @@ void all_test(){
     testAll_lastWordInFirstStringInSecondString();
     test_haveEqualWords();
     test_haveWordWithEqualSymbolSet();
+    test_deleteEqualLastWord();
 }
 
 

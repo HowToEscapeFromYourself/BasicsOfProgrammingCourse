@@ -147,4 +147,7 @@ bool haveEqualWords(char* s);
 // набора букв
 bool haveWordWithEqualSymbolSet(char* s);
 
+//получает строку из слов данной строки, которые отличны от последнего слова
+void deleteEqualLastWord(char* s);
+
 #endif //DATA_STRUCTURES1_STRING_H
