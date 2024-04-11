@@ -239,6 +239,30 @@ void testAll_fillShorterStr() {
     ASSERT_STRING("I want to sleep", s5);
 }
 
+void test_isAllWordLettersInStr(){
+    char s1[] = "i want to go the sea want";
+    char s2[] = "i want to go the sea want";
+    char s3[] = "";
+
+
+    char ws1[] = "wwannts";
+    char ws2[] = "qxz";
+    char ws3[] = "";
+
+    WordDescriptor word1;
+    WordDescriptor word2;
+    WordDescriptor word3;
+
+    getWord(ws1, &word1);
+    getWord(ws2, &word2);
+    word3 = (WordDescriptor) {ws3, ws3};
+
+    assert(isAllWordLettersInStr(s1, word1));
+    assert(!isAllWordLettersInStr(s2, word2));
+    assert(isAllWordLettersInStr(s3, word3));
+
+}
+
 void all_test(){
     test_removeAdjacentEqualLetters();
     test_getWordReverse();
@@ -258,6 +282,7 @@ void all_test(){
     testAll_getFirstWordS1InS2();
     testAll_deletePalindromes();
     testAll_fillShorterStr();
+    test_isAllWordLettersInStr();
 }
 
 

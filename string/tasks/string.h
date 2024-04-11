@@ -166,4 +166,7 @@ void fillStrWords(char* s, BagOfWords bag, size_t start_copy_index);
 // в которой содержится большее количество слов
 void fillShorterStr(char* s1, char* s2);
 
+//определяет, входит ли в данную строку каждая буква данного слова
+bool isAllWordLettersInStr(char* s, WordDescriptor word);
+
 #endif //DATA_STRUCTURES1_STRING_H
