@@ -159,4 +159,11 @@ bool isPalindrome(WordDescriptor word);
 //удаляет из данной строки слова-палиндромы
 void deletePalindromes(char* s);
 
+//копирует из сумки bag слова начиная с bag2_size
+void fillStrWords(char* s, BagOfWords bag, size_t start_copy_index);
+
+//дополняет строку, содержащую меньшее количество слов, последними словами строки,
+// в которой содержится большее количество слов
+void fillShorterStr(char* s1, char* s2);
+
 #endif //DATA_STRUCTURES1_STRING_H

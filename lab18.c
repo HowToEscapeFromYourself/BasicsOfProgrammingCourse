@@ -221,6 +221,23 @@ void testAll_deletePalindromes() {
     ASSERT_STRING("", s3);
 }
 
+void testAll_fillShorterStr() {
+    char s1[MAX_STRING_SIZE] = "";
+    char s2[MAX_STRING_SIZE] = "";
+    fillShorterStr(s1, s2);
+    ASSERT_STRING("", s1);
+    ASSERT_STRING("", s2);
+
+    char s3[MAX_STRING_SIZE] = "I want to go the sea";
+    char s4[MAX_STRING_SIZE] = "word1 word2";
+    fillShorterStr(s3, s4);
+    ASSERT_STRING("word1 word2 to go the sea", s4);
+
+    char s5[MAX_STRING_SIZE] = "";
+    char s6[MAX_STRING_SIZE] = "I want to sleep";
+    fillShorterStr(s5, s6);
+    ASSERT_STRING("I want to sleep", s5);
+}
 
 void all_test(){
     test_removeAdjacentEqualLetters();
@@ -240,6 +257,7 @@ void all_test(){
     test_deleteEqualLastWord();
     testAll_getFirstWordS1InS2();
     testAll_deletePalindromes();
+    testAll_fillShorterStr();
 }
 
 
