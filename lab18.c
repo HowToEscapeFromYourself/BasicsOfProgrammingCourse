@@ -207,6 +207,19 @@ void testAll_getFirstWordS1InS2() {
     );
 }
 
+void testAll_deletePalindromes() {
+    char s1[] = "";
+    deletePalindromes(s1);
+    ASSERT_STRING("", s1);
+
+    char s2[] = "peep war reed deed feel";
+    deletePalindromes(s2);
+    ASSERT_STRING("war reed feel", s2);
+
+    char s3[] = "peep deed";
+    deletePalindromes(s3);
+    ASSERT_STRING("", s3);
+}
 
 
 void all_test(){
@@ -226,6 +239,7 @@ void all_test(){
     test_haveWordWithEqualSymbolSet();
     test_deleteEqualLastWord();
     testAll_getFirstWordS1InS2();
+    testAll_deletePalindromes();
 }
 
 

@@ -153,4 +153,10 @@ void deleteEqualLastWord(char* s);
 //возвращает первое слово строки s1 котрое есть в строке s2
 WordDescriptor getFirstWordS1InS2(char* s1, char* s2);
 
+//является ли слово палиндромом
+bool isPalindrome(WordDescriptor word);
+
+//удаляет из данной строки слова-палиндромы
+void deletePalindromes(char* s);
+
 #endif //DATA_STRUCTURES1_STRING_H
