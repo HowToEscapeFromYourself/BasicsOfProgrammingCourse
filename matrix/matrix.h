@@ -2,6 +2,7 @@
 #define DATA_STRUCTURES1_MATRIX_H
 #include <stdbool.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 typedef struct matrix {
     int **values; // элементы матрицы
@@ -89,5 +90,19 @@ int countZeroRows(matrix m);
 //в динамической памяти, построенных из элементов массива a
 matrix *createArrayOfMatrixFromArray(const int *values, size_t nMatrices,
                                      size_t nRows,size_t nCols);
+
+//19 лаба
+
+//возвращает матрицу, загруженную из файла file
+matrix loadSquareMatrix(FILE*file);
+
+//сохраняет матрицу в файл file
+void saveSquareMatrix(matrix m, FILE*file);
+
+//возвращает матрицы, загруженные из файла file
+matrix* loadSquareMatrices(FILE*file, int*n);
+
+//сохраняет матрицы в файл file
+void saveSquareMatrices(FILE*file, matrix* ms, int n);
 
 #endif //DATA_STRUCTURES1_MATRIX_H

@@ -187,7 +187,7 @@ void transposeSquareMatrix(matrix *m) {
     for (int row_index = 0; row_index < m->nRows; ++row_index)
         for (int col_index = m->nCols-1; col_index > row_index; --col_index)
             swapInt(&m->values[row_index][col_index],
-                    &m->values[row_index][col_index]);
+                    &m->values[col_index][row_index]);
 
 }
 
@@ -262,4 +262,42 @@ matrix *createArrayOfMatrixFromArray(const int *values, size_t nMatrices,
                 ms[k].values[i][j] = values[l++];
 
     return ms;
+}
+
+matrix loadSquareMatrix(FILE*file) {
+    int n;
+    fscanf(file, "%d", &n);
+    matrix m = getMemMatrix(n, n);
+    for (int row_index = 0; row_index < m.nRows; ++row_index) {
+        for (int col_index = 0; col_index < m.nCols; ++col_index) {
+             fscanf(file, "%d", &m.values[row_index][col_index]);
+        }
+    }
+    return m;
+}
+
+void saveSquareMatrix(matrix m, FILE*file) {
+    fprintf(file, "%d\n", m.nRows);
+    for (int row_index = 0; row_index < m.nRows; ++row_index) {
+        for (int col_index = 0; col_index < m.nCols; ++col_index) {
+            fprintf(file, "%d ", m.values[row_index][col_index]);
+        }
+        fputc('\n', file);
+    }
+}
+
+matrix* loadSquareMatrices(FILE*file, int*n) {
+    fscanf(file, "%d", n);
+    matrix* arr = malloc(*n*sizeof(matrix));
+    for (int i = 0; i < *n; ++i) {
+        arr[i] = loadSquareMatrix(file);
+    }
+    return arr;
+}
+
+void saveSquareMatrices(FILE*file, matrix* ms, int n) {
+    fprintf(file, "%d\n", n);
+    for (int i = 0; i < n; ++i) {
+        saveSquareMatrix(ms[i], file);
+    }
 }
