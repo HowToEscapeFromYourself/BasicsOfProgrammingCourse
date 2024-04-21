@@ -82,7 +82,43 @@ void test_task2() {
     assert(isFilesEqual("task2finish.txt", filename));
 }
 
+float calc(int o, float d1, float d2) {
+    switch (o) {
+        case '+': return d1+d2;
+        case '-': return d1-d2;
+        case '*': return d1*d2;
+        case '/': return d1/d2;
+    }
+}
 
+void task3(const char *filename) {
+    float res;
+    FILE*file = fopen(filename, "r");
+    int d1 = fgetc(file)-'0';
+    int o1 = fgetc(file);
+    int d2 = fgetc(file)-'0';
+    int o2 = fgetc(file);
+    if (o2 == EOF)
+        res = calc(o1, d1, d2);
+    else {
+        int d3 = fgetc(file) - '0';
+        if ((o1=='+' || o1=='-') && (o2=='*' || o2=='/'))
+            res = calc(o1, d1, calc(o2, d2, d3));
+        else
+            res = calc(o2, calc(o1, d1, d2), d3);
+    }
+    fclose(file);
+    file = fopen(filename, "a");
+    fprintf(file, "=%.2f", res);
+    fclose(file);
+}
+
+void test_task3() {
+    char filename[] = "task3.txt";
+    fileCopy(filename, "task3original.txt");
+    task3(filename);
+    assert(isFilesEqual("task3finish.txt", filename));
+}
 
 
 
@@ -91,6 +127,7 @@ void test_task2() {
 void all_test(){
     test_task1();
     test_task2();
+    test_task3();
 }
 
 
