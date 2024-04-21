@@ -56,7 +56,30 @@ void test_task1() {
     fileCopy(filename, "task1original.txt");
     task1(filename);
     assert(isFilesEqual("task1finish.txt", filename));
+}
 
+void task2(const char *filename) {
+    FILE*file = fopen(filename, "r");
+    int n;
+    fscanf(file, "%d", &n);
+    float arr[n];
+    for (int i = 0; i < n; ++i) {
+        fscanf(file, "%f", &arr[i]);
+    }
+    fclose(file);
+    file = fopen(filename, "w");
+    fprintf(file, "%d \n", n);
+    for (int i = 0; i < n; ++i) {
+        fprintf(file, "%.2f \n", arr[i]);
+    }
+    fclose(file);
+}
+
+void test_task2() {
+    char filename[] = "task2.txt";
+    fileCopy(filename, "task2original.txt");
+    task2(filename);
+    assert(isFilesEqual("task2finish.txt", filename));
 }
 
 
@@ -67,6 +90,7 @@ void test_task1() {
 
 void all_test(){
     test_task1();
+    test_task2();
 }
 
 
