@@ -2,6 +2,9 @@
 #include <stdio.h>
 #include "matrix/matrix.h"
 #include <string.h>
+#define MAX_STR_SIZE 100
+#include "string/tasks/string.h"
+
 
 //возвращает размер файла
 long getFileSize(const char* filename) {
@@ -147,6 +150,41 @@ void test_task4() {
     assert(isFilesEqual("task4finish.txt", filename));
 }
 
+void task5(const char *filename) {
+    long n = getFileSize(filename);
+    FILE *file = fopen(filename, "r");
+    char s[n];
+    char* write_ptr = s;
+    char buffer[n];
+    while (fgets(buffer, n, file)!=NULL) {  //строку
+        WordDescriptor word = {0, buffer};
+        WordDescriptor longest_word = {0, 0};
+        int max_len = 0;
+        while (getWord(word.end, &word)) {
+            if (max_len < wordLen(word)) {
+                longest_word = word;
+                max_len = wordLen(word);
+            }
+        }
+        if (max_len!= 0) {
+            write_ptr = wordCpy(write_ptr, longest_word);
+            *write_ptr = '\n';
+            write_ptr++;
+        }
+    }
+    *write_ptr = '\0';
+    fclose(file);
+    file = fopen(filename, "w");
+    fprintf(file, "%s", s);
+    fclose(file);
+}
+
+void test_task5() {
+    char filename[] = "task5.txt";
+    fileCopy(filename, "task5original.txt");
+    task5(filename);
+    assert(isFilesEqual("task5finish.txt", filename));
+}
 
 
 void all_test(){
@@ -154,6 +192,7 @@ void all_test(){
     test_task2();
     test_task3();
     test_task4();
+    test_task5();
 }
 
 
