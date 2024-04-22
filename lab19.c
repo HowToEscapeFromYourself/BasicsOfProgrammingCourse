@@ -1,6 +1,7 @@
 #include <assert.h>
 #include <stdio.h>
 #include "matrix/matrix.h"
+#include <string.h>
 
 //возвращает размер файла
 long getFileSize(const char* filename) {
@@ -120,7 +121,31 @@ void test_task3() {
     assert(isFilesEqual("task3finish.txt", filename));
 }
 
+void task4(const char *filename, char* sub_str) {
+    FILE*file = fopen(filename, "r");
+    long n = getFileSize(filename);
+    char s[n+1];
+    char* write_ptr = s;
+    while (fscanf(file, "%s", write_ptr) == 1) {
+        if (strstr(write_ptr, sub_str)) {
+            write_ptr+= strlen(write_ptr);
+            *write_ptr=' ';
+            write_ptr++;
+        }
+    }
+    *write_ptr = '\0';
+    fclose(file);
+    file = fopen(filename, "w");
+    fprintf(file, "%s", s);
+    fclose(file);
+}
 
+void test_task4() {
+    char filename[] = "task4.txt";
+    fileCopy(filename, "task4original.txt");
+    task4(filename, "abc");
+    assert(isFilesEqual("task4finish.txt", filename));
+}
 
 
 
@@ -128,6 +153,7 @@ void all_test(){
     test_task1();
     test_task2();
     test_task3();
+    test_task4();
 }
 
 
