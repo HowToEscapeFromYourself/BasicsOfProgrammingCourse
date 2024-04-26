@@ -232,8 +232,53 @@ void test_task6() {
     assert(ps.buffer[0].buffer[0].power == 5);
 }
 
+//
 
+void task7(const char *filename) {
+    FILE*f = fopen(filename, "rb");
+    int n;
+    fread(&n, sizeof (int), 1, f);
+    int negative[n/2];
+    int positive[n/2];
+    int index_p = 0;
+    int index_n = 0;
+    for (int i = 0; i < n; ++i) {
+        int num;
+        fread(&num, sizeof (int), 1, f);
+        if (num > 0)
+            positive[index_p++] = num;
+        else
+            negative[index_n++] = num;
+    }
+    fclose(f);
+    f = fopen(filename, "wb");
+    fwrite(&n, sizeof (int), 1, f);
+    fwrite(positive, sizeof (int), n/2, f);
+    fwrite(negative, sizeof (int), n/2, f);
+    fclose(f);
+}
 
+void task7_gen() {
+    FILE*f = fopen("task7.txt", "wb");
+    int n = 8;
+    fwrite(&n, sizeof (int), 1, f);
+    int arr[8] = {9,-4,-2,20,7,-35,1,-564};
+    fwrite(arr, sizeof (int), n, f);
+    fclose(f);
+}
+
+void test_task7() {
+    task7_gen();
+    task7("task7.txt");
+    FILE*f = fopen("task7.txt", "rb");
+    int exp[8] = {9,20,7,1,-4,-2,-35,-564};
+    int n;
+    fread(&n, sizeof (int), 1, f);
+    int res[n];
+    fread(res, sizeof (int), n, f);
+
+    assert(!memcmp(res, exp, sizeof (int)*8));
+}
 
 void all_test(){
     test_task1();
@@ -242,6 +287,7 @@ void all_test(){
     test_task4();
     test_task5();
     test_task6();
+    test_task7();
 }
 
 
