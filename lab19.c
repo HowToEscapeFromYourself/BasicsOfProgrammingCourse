@@ -4,6 +4,7 @@
 #include <string.h>
 #define MAX_STR_SIZE 100
 #include "string/tasks/string.h"
+#include "Polynomial/polynomial.h"
 
 
 //возвращает размер файла
@@ -186,6 +187,53 @@ void test_task5() {
     assert(isFilesEqual("task5finish.txt", filename));
 }
 
+void task6(const char *filename, double x) {
+    FILE*f = fopen(filename, "rb");
+    polynomials ps = createPolynomials(f);
+    for (int i = 0; i < ps.amount; ++i) {
+        if (isValuePolynomialRoot(ps.buffer[i], x))
+            deletePolynomialByIndex(&ps, i--);
+    }
+    fclose(f);
+    f = fopen(filename, "wb");
+    savePolynomials(ps,f);
+    fclose(f);
+}
+
+void task6_gen() {
+    polynomials ps = {
+            (polynomial[]){
+                    createPolynomialFromArr(
+                            (int[]){5, 3, 2, 0},
+                            (double[]){-2, 4, 2, 8}, //x=1.7
+                            4
+                    ),
+                    createPolynomialFromArr(
+                            (int[]){3, 0},
+                            (double[]){1, -27}, // x=3
+                            2
+                    )
+            }, 2
+    };
+    FILE*f = fopen("task6.txt", "wb");
+    savePolynomials(ps,f);
+    fclose(f);
+    for (int i = 0; i < ps.amount; ++i) {
+        deletePolynomial(&ps.buffer[i]);
+    };
+}
+
+void test_task6() {
+    task6_gen();
+    task6("task6.txt", 3);
+    FILE*f = fopen("task6.txt", "rb");
+    polynomials ps = createPolynomials(f);
+    assert(ps.amount == 1);
+    assert(ps.buffer[0].buffer[0].power == 5);
+}
+
+
+
 
 void all_test(){
     test_task1();
@@ -193,6 +241,7 @@ void all_test(){
     test_task3();
     test_task4();
     test_task5();
+    test_task6();
 }
 
 
