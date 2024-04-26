@@ -264,6 +264,8 @@ matrix *createArrayOfMatrixFromArray(const int *values, size_t nMatrices,
     return ms;
 }
 
+//19lab
+
 matrix loadSquareMatrix(FILE*file) {
     int n;
     fscanf(file, "%d", &n);
@@ -301,3 +303,42 @@ void saveSquareMatrices(FILE*file, matrix* ms, int n) {
         saveSquareMatrix(ms[i], file);
     }
 }
+
+//
+
+
+matrix loadSquareMatrixBin(FILE*f) {
+    int n;
+    fread(&n, sizeof (int), 1, f);
+    matrix m = getMemMatrix(n, n);
+    for (int row_index = 0; row_index < m.nRows; ++row_index) {
+        fread(m.values[row_index], sizeof (int), m.nCols, f);
+    }
+    return m;
+}
+
+void saveSquareMatrixBin(matrix m, FILE*f) {
+    fwrite(&m.nRows, sizeof (int), 1, f);
+    for (int row_index = 0; row_index < m.nRows; ++row_index) {
+        fwrite(m.values[row_index], sizeof (int), m.nCols, f);
+    }
+}
+
+matrix* loadSquareMatricesBin(FILE*f, int*n) {
+    fread(n, sizeof (int), 1, f);
+    matrix* arr = malloc(*n*sizeof(matrix));
+    for (int i = 0; i < *n; ++i) {
+        arr[i] = loadSquareMatrixBin(f);
+    }
+    return arr;
+}
+
+void saveSquareMatricesBin(FILE*f, matrix* ms, int n) {
+    fwrite(&n, sizeof (int), 1, f);
+    for (int i = 0; i < n; ++i) {
+        saveSquareMatrixBin(ms[i], f);
+    }
+}
+
+
+

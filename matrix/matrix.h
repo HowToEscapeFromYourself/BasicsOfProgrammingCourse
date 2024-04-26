@@ -105,4 +105,18 @@ matrix* loadSquareMatrices(FILE*file, int*n);
 //сохраняет матрицы в файл file
 void saveSquareMatrices(FILE*file, matrix* ms, int n);
 
+//
+
+//возвращает матрицу, загруженную из бинарного файла f
+matrix loadSquareMatrixBin(FILE*f);
+
+//сохраняет матрицу в бинарный файл f
+void saveSquareMatrixBin(matrix m, FILE*f);
+
+//возвращает матрицы, загруженные из бинарного файла f
+matrix* loadSquareMatricesBin(FILE*f, int*n);
+
+//сохраняет матрицы в бинарный файл f
+void saveSquareMatricesBin(FILE*f, matrix* ms, int n);
+
 #endif //DATA_STRUCTURES1_MATRIX_H

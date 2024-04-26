@@ -7,6 +7,7 @@
 #include "Polynomial/polynomial.h"
 
 
+
 //возвращает размер файла
 long getFileSize(const char* filename) {
     FILE *f = fopen(filename, "rb");
@@ -280,6 +281,134 @@ void test_task7() {
     assert(!memcmp(res, exp, sizeof (int)*8));
 }
 
+//
+
+void task8(const char *filename) {
+    FILE*f = fopen(filename, "rb");
+    int n;
+    matrix* ms = loadSquareMatricesBin(f, &n);
+    for (int i = 0; i < n; ++i) {
+        if (!isSymmetricMatrix(&ms[i]))
+            transposeSquareMatrix(&ms[i]);
+    }
+    fclose(f);
+    f = fopen(filename, "wb");
+    saveSquareMatricesBin(f, ms, n);
+    fclose(f);
+}
+
+void task8_gen() {
+    matrix m01 = createMatrixFromArray(
+            (int[])
+                    {
+                            1, 78,
+                            58, 5
+                    },
+            2,2
+    );
+
+    matrix m02 = createMatrixFromArray(
+            (int[])
+                    {
+                            1, 2, 3,
+                            2, 4, 7,
+                            3, 7, 10
+                    },
+            3, 3
+    );
+
+    matrix m03 = createMatrixFromArray(
+            (int[])
+                    {
+                            1, 2, 3,
+                            2, 0, 0,
+                            3, 0, 10
+                    },
+            3, 3
+    );
+
+    matrix m04 = createMatrixFromArray(
+            (int[])
+                    {
+                            1, 2, 3,
+                            3, 4, 3,
+                            1, 2, 10
+                    },
+            3, 3
+    );
+    FILE*f = fopen("task8.txt", "wb");
+    int n = 4;
+    fwrite(&n, sizeof (int), 1, f);
+    saveSquareMatrixBin(m01, f);
+    saveSquareMatrixBin(m02, f);
+    saveSquareMatrixBin(m03, f);
+    saveSquareMatrixBin(m04, f);
+    fclose(f);
+    freeMemMatrix(&m01);
+    freeMemMatrix(&m02);
+    freeMemMatrix(&m03);
+    freeMemMatrix(&m04);
+}
+
+void test_task8() {
+    task8_gen();
+    task8("task8.txt");
+    FILE*f = fopen("task8.txt", "rb");
+    matrix m01 = createMatrixFromArray( //
+            (int[])
+                    {
+                            1, 58,
+                            78, 5
+                    },
+            2,2
+    );
+
+    matrix m02 = createMatrixFromArray(
+            (int[])
+                    {
+                            1, 2, 3,
+                            2, 4, 7,
+                            3, 7, 10
+                    },
+            3, 3
+    );
+
+    matrix m03 = createMatrixFromArray(
+            (int[])
+                    {
+                            1, 2, 3,
+                            2, 0, 0,
+                            3, 0, 10
+                    },
+            3, 3
+    );
+
+    matrix m04 = createMatrixFromArray( //
+            (int[])
+                    {
+                            1, 3, 1,
+                            2, 4, 2,
+                            3, 3, 10
+                    },
+            3, 3
+    );
+    int n;
+    matrix *ms = loadSquareMatricesBin(f, &n);
+    assert(areTwoMatricesEqual(&m01, &ms[0]));
+    assert(areTwoMatricesEqual(&m02, &ms[1]));
+    assert(areTwoMatricesEqual(&m03, &ms[2]));
+    assert(areTwoMatricesEqual(&m04, &ms[3]));
+    fclose(f);
+    freeMemMatrix(&m01);
+    freeMemMatrix(&m02);
+    freeMemMatrix(&m03);
+    freeMemMatrix(&m04);
+}
+
+
+
+
+
 void all_test(){
     test_task1();
     test_task2();
@@ -288,7 +417,9 @@ void all_test(){
     test_task5();
     test_task6();
     test_task7();
+    test_task8();
 }
+
 
 
 
