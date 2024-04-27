@@ -233,8 +233,6 @@ void test_task6() {
     assert(ps.buffer[0].buffer[0].power == 5);
 }
 
-//
-
 void task7(const char *filename) {
     FILE*f = fopen(filename, "rb");
     int n;
@@ -280,8 +278,6 @@ void test_task7() {
 
     assert(!memcmp(res, exp, sizeof (int)*8));
 }
-
-//
 
 void task8(const char *filename) {
     FILE*f = fopen(filename, "rb");
@@ -405,8 +401,134 @@ void test_task8() {
     freeMemMatrix(&m04);
 }
 
+//считывает одну строку из бинарного файла
+char* loadStr(FILE*f) {
+    int n;
+    fread(&n, sizeof(int), 1, f);
+    char* s = malloc(n+1);
+    fread(s, sizeof (char), n, f);
+    *(s+n) = '\0';
+    return s;
+}
 
+//записывает строку в бинарный файл f
+void saveStrInBin(char* s, FILE*f) {
+    int n = (int) strlen_(s);
+    fwrite(&n, sizeof (int), 1, f);
+    fwrite(s, sizeof (char), n, f);
+}
 
+typedef struct {
+    char* s;
+    int n;
+} sportsman;
+
+//загружает из файла 1-го спортстмена
+sportsman loadSportsman(FILE*f) {
+    sportsman one;
+    one.s = loadStr(f);
+    fread(&one.n, sizeof (int), 1, f);
+    return one;
+}
+
+//сохранение в бинарный файл 1-го спортсмена
+void saveSportsman(sportsman* one, FILE*f) {
+    saveStrInBin(one->s, f);
+    fwrite(&one->n, sizeof (int), 1, f);
+}
+
+//освобождение памяти, выделенной для 1-го спортсмена
+void freeSportsman(sportsman* one) {
+    free(one->s);
+    one->s = NULL;
+    one->n = 0;
+}
+
+typedef struct {
+    sportsman* buffer;
+    int n;
+} sportsmen;
+
+//загружает из файла всех спортстменов
+sportsmen loadSportsmen(FILE*f) {
+    sportsmen many;
+    fread(&many.n, sizeof (int), 1, f);
+    many.buffer = malloc(sizeof (sportsman)*many.n);
+    for (int i = 0; i < many.n; ++i) {
+        many.buffer[i] = loadSportsman(f);
+    }
+    return many;
+}
+
+//сохранение в бинарный файл всех спортсменов
+void saveSportsmen(sportsmen* many, FILE*f) {
+    fwrite(&many->n, sizeof (int), 1, f);
+    for (int i = 0; i < many->n; ++i) {
+        saveSportsman(&many->buffer[i], f);
+    }
+}
+
+//освобождение памяти, выделенной для всех спортсменов
+void freeSportsmen(sportsmen* many) {
+    for (int i = 0; i < many->n; ++i) {
+        freeSportsman(&many->buffer[i]);
+    }
+    many->buffer = NULL;
+    many->n = 0;
+}
+
+//функция сравнения
+int sportsmanCmp(const void* p1,const void* p2) {
+    const sportsman* s1 = (sportsman*) p1;
+    const sportsman* s2 = (sportsman*) p2;
+    return s2->n-s1->n;
+}
+
+//оставить n лучших спортсменов в стуктуре many
+void theBest(sportsmen* many, int n) {
+    qsort(many->buffer, many->n, sizeof (sportsman), sportsmanCmp);
+    for (int i = n; i < many->n; ++i) {
+        freeSportsman(&many->buffer[i]);
+    }
+    many->n = n;
+}
+
+void task9(char* filename, int n) {
+    FILE*f = fopen(filename, "rb");
+    sportsmen many = loadSportsmen(f);
+    theBest(&many, n);
+    fclose(f);
+    f = fopen(filename, "wb");
+    saveSportsmen(&many,f);
+    fclose(f);
+    freeSportsmen(&many);
+}
+
+void task9_gen() {
+    sportsman s1 = {"Фамилия1", 34};
+    sportsman s2 = {"Фамилия2", 10};
+    sportsman s3 = {"Фамилия3", 100};
+    sportsman s4 = {"Фамилия4", 90};
+    sportsman s5 = {"Фамилия5", 75};
+    sportsman s6 = {"Фамилия6", 60};
+    sportsmen ss = {(sportsman[]){s1,s2,s3,s4,s5,s6}, 6};
+    FILE*f = fopen("task9.txt", "wb");
+    saveSportsmen(&ss, f);
+    fclose(f);
+}
+
+void test_task9() {
+    task9_gen();
+    task9("task9.txt", 3);
+    FILE*f = fopen("task9.txt", "rb");
+    sportsmen many = loadSportsmen(f);
+    assert(many.n == 3);
+    assert(many.buffer[0].n == 100);
+    assert(many.buffer[1].n == 90);
+    assert(many.buffer[2].n == 75);
+    fclose(f);
+    freeSportsmen(&many);
+}
 
 
 void all_test(){
@@ -418,6 +540,7 @@ void all_test(){
     test_task6();
     test_task7();
     test_task8();
+    test_task9();
 }
 
 
