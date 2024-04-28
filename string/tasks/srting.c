@@ -525,3 +525,20 @@ bool isAllWordLettersInStr(char* s, WordDescriptor word) {
     }
     return size==0;
 }
+
+//считывает одну строку из бинарного файла
+char* loadStr(FILE*f) {
+    int n;
+    fread(&n, sizeof(int), 1, f);
+    char* s = malloc(n+1);
+    fread(s, sizeof (char), n, f);
+    *(s+n) = '\0';
+    return s;
+}
+
+//записывает строку в бинарный файл f
+void saveStrInBin(char* s, FILE*f) {
+    int n = (int) strlen_(s);
+    fwrite(&n, sizeof (int), 1, f);
+    fwrite(s, sizeof (char), n, f);
+}

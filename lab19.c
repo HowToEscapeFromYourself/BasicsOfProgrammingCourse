@@ -5,6 +5,7 @@
 #define MAX_STR_SIZE 100
 #include "string/tasks/string.h"
 #include "Polynomial/polynomial.h"
+#include "products/product.h"
 
 
 
@@ -401,22 +402,7 @@ void test_task8() {
     freeMemMatrix(&m04);
 }
 
-//считывает одну строку из бинарного файла
-char* loadStr(FILE*f) {
-    int n;
-    fread(&n, sizeof(int), 1, f);
-    char* s = malloc(n+1);
-    fread(s, sizeof (char), n, f);
-    *(s+n) = '\0';
-    return s;
-}
 
-//записывает строку в бинарный файл f
-void saveStrInBin(char* s, FILE*f) {
-    int n = (int) strlen_(s);
-    fwrite(&n, sizeof (int), 1, f);
-    fwrite(s, sizeof (char), n, f);
-}
 
 typedef struct {
     char* s;
@@ -530,6 +516,64 @@ void test_task9() {
     freeSportsmen(&many);
 }
 
+void task10(const char* productsf, const char* ordersf) {
+    FILE *fp = fopen(productsf, "rb");
+    FILE *fo = fopen(ordersf, "rb");
+    products ps = loadProducts(fp);
+    orders os = loadOrders(fo);
+    fulfillOrders(&ps, os);
+    fclose(fp);
+    fclose(fo);
+    fp = fopen(productsf, "wb");
+    saveProducts(ps, fp);
+    fclose(fp);
+    deleteProducts(&ps);
+    deleteOrders(&os);
+}
+
+void task10_gen() {
+    product p1 = createProductNotCopy("apple", 22, 6);
+    product p2 = createProductNotCopy("banana", 58, 5);
+    product p3 = createProductNotCopy("watermelon", 100, 3);
+    product p4 = createProductNotCopy("grapes", 64, 83);
+    product p5 = createProductNotCopy("strawberry", 12, 83);
+    product p6 = createProductNotCopy("pineapple", 47, 9);
+    product p7 = createProductNotCopy("cake", 98, 31);
+    product p8 = createProductNotCopy("orange", 23, 34);
+    products ps = {(product[]){p1,p2,p3,p4,p5,p6, p7, p8}, 8};
+    FILE* fp = fopen("task10p.txt", "wb");
+    saveProducts(ps, fp);
+    fclose(fp);
+    order o1 = {"banana", 5};
+    order o2 = {"grapes", 82};
+    order o3 = {"pineapple", 100};
+    orders os = {(order[]){o1,o2,o3}, 3};
+    FILE* fo = fopen("task10o.txt", "wb");
+    saveOrders(os, fo);
+    fclose(fo);
+}
+
+void test_task10() {
+    task10_gen();
+    task10("task10p.txt", "task10o.txt");
+    FILE *fp = fopen("task10p.txt", "rb");
+    products ps = loadProducts(fp);
+    product p1 = createProductNotCopy("apple", 22, 6);
+    product p2 = createProductNotCopy("orange", 23, 34);
+    product p3 = createProductNotCopy("watermelon", 100, 3);
+    product p4 = createProductNotCopy("grapes", 64, 1);
+    product p5 = createProductNotCopy("strawberry", 12, 83);
+    product p6 = createProductNotCopy("cake", 98, 31);
+    products res = {(product[]) {p1, p2, p3, p4, p5, p6}, 6};
+    for (int i = 0; i < 6; ++i) {
+        assert(cmpProducts(ps.buffer[i], res.buffer[i]));
+    }
+    fclose(fp);
+    deleteProducts(&ps);
+}
+
+
+
 
 void all_test(){
     test_task1();
@@ -541,6 +585,7 @@ void all_test(){
     test_task7();
     test_task8();
     test_task9();
+    test_task10();
 }
 
 

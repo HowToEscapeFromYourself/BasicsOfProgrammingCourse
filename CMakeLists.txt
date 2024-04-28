@@ -16,4 +16,6 @@ add_executable(data_structures1
         string/tasks/srting.c
         lab19.c
         Polynomial/polynomial.c
-        Polynomial/polynomial.h)
+        Polynomial/polynomial.h
+        products/product.c
+        products/product.h)

@@ -6,6 +6,7 @@
 #define MAX_WORD_SIZE 20
 #include <stdlib.h>
 #include <stdbool.h>
+#include <stdio.h>
 
 
 
@@ -168,5 +169,11 @@ void fillShorterStr(char* s1, char* s2);
 
 //определяет, входит ли в данную строку каждая буква данного слова
 bool isAllWordLettersInStr(char* s, WordDescriptor word);
+
+//считывает одну строку из бинарного файла
+char* loadStr(FILE*f);
+
+//записывает строку в бинарный файл f
+void saveStrInBin(char* s, FILE*f);
 
 #endif //DATA_STRUCTURES1_STRING_H
