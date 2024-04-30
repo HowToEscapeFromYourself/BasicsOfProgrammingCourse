@@ -588,10 +588,3 @@ void all_test(){
     test_task10();
 }
 
-
-
-
-int main() {
-    all_test();
-    return 0;
-}

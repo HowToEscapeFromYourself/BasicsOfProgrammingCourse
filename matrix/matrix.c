@@ -7,8 +7,10 @@
 
 matrix getMemMatrix(int nRows, int nCols) {
     int **values = (int **) malloc(sizeof(int*) * nRows);
-    for (int i = 0; i < nRows; i++)
+    for (int i = 0; i < nRows; i++) {
         values[i] = (int *) malloc(sizeof(int) * nCols);
+        memset(values[i], 0, nCols*sizeof (int));
+    }
     return (matrix){values, nRows, nCols};
 }
 

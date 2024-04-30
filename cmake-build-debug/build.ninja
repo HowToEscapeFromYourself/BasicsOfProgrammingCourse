@@ -77,13 +77,6 @@ build CMakeFiles/data_structures1.dir/string/tasks/srting.c.obj: C_COMPILER__dat
   OBJECT_DIR = CMakeFiles\data_structures1.dir
   OBJECT_FILE_DIR = CMakeFiles\data_structures1.dir\string\tasks
 
-build CMakeFiles/data_structures1.dir/lab19.c.obj: C_COMPILER__data_structures1_unscanned_Debug C$:/Users/Anastasia/course/libs/data_structures1/lab19.c || cmake_object_order_depends_target_data_structures1
-  DEP_FILE = CMakeFiles\data_structures1.dir\lab19.c.obj.d
-  FLAGS = -g -std=gnu11 -fdiagnostics-color=always
-  INCLUDES = -IC:/Users/Anastasia/course/libs/data_structures1/vector
-  OBJECT_DIR = CMakeFiles\data_structures1.dir
-  OBJECT_FILE_DIR = CMakeFiles\data_structures1.dir
-
 build CMakeFiles/data_structures1.dir/Polynomial/polynomial.c.obj: C_COMPILER__data_structures1_unscanned_Debug C$:/Users/Anastasia/course/libs/data_structures1/Polynomial/polynomial.c || cmake_object_order_depends_target_data_structures1
   DEP_FILE = CMakeFiles\data_structures1.dir\Polynomial\polynomial.c.obj.d
   FLAGS = -g -std=gnu11 -fdiagnostics-color=always
@@ -98,6 +91,13 @@ build CMakeFiles/data_structures1.dir/products/product.c.obj: C_COMPILER__data_s
   OBJECT_DIR = CMakeFiles\data_structures1.dir
   OBJECT_FILE_DIR = CMakeFiles\data_structures1.dir\products
 
+build CMakeFiles/data_structures1.dir/lab20.c.obj: C_COMPILER__data_structures1_unscanned_Debug C$:/Users/Anastasia/course/libs/data_structures1/lab20.c || cmake_object_order_depends_target_data_structures1
+  DEP_FILE = CMakeFiles\data_structures1.dir\lab20.c.obj.d
+  FLAGS = -g -std=gnu11 -fdiagnostics-color=always
+  INCLUDES = -IC:/Users/Anastasia/course/libs/data_structures1/vector
+  OBJECT_DIR = CMakeFiles\data_structures1.dir
+  OBJECT_FILE_DIR = CMakeFiles\data_structures1.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target data_structures1
@@ -106,7 +106,7 @@ build CMakeFiles/data_structures1.dir/products/product.c.obj: C_COMPILER__data_s
 #############################################
 # Link the executable data_structures1.exe
 
-build data_structures1.exe: C_EXECUTABLE_LINKER__data_structures1_Debug CMakeFiles/data_structures1.dir/vector/vector.c.obj CMakeFiles/data_structures1.dir/matrix/matrix.c.obj CMakeFiles/data_structures1.dir/algorithms/algorithms.c.obj CMakeFiles/data_structures1.dir/string/tasks/srting.c.obj CMakeFiles/data_structures1.dir/lab19.c.obj CMakeFiles/data_structures1.dir/Polynomial/polynomial.c.obj CMakeFiles/data_structures1.dir/products/product.c.obj
+build data_structures1.exe: C_EXECUTABLE_LINKER__data_structures1_Debug CMakeFiles/data_structures1.dir/vector/vector.c.obj CMakeFiles/data_structures1.dir/matrix/matrix.c.obj CMakeFiles/data_structures1.dir/algorithms/algorithms.c.obj CMakeFiles/data_structures1.dir/string/tasks/srting.c.obj CMakeFiles/data_structures1.dir/Polynomial/polynomial.c.obj CMakeFiles/data_structures1.dir/products/product.c.obj CMakeFiles/data_structures1.dir/lab20.c.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\data_structures1.dir
