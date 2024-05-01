@@ -55,12 +55,81 @@ void test1() {
     matrix m4 = task1 (3, cs2, 2);
     assert(areTwoMatricesEqual(&m1, &m3));
     assert(areTwoMatricesEqual(&m2, &m4));
+    freeMemMatrix(&m1);
+    freeMemMatrix(&m2);
+    freeMemMatrix(&m3);
+    freeMemMatrix(&m4);
 }
 
+int max_(int x, int y) {
+    return x>y ? x: y;
+}
 
+int min_(int x, int y) {
+    return x<y ? x: y;
+}
 
+int countNeighbours(matrix m, int row_index, int col_index) {
+    int n = 0;
+    for (int row_n = max_(0, row_index-1); row_n <=
+        min_(m.nRows-1 ,row_index+1); ++row_n) {
+        for (int col_n = max_(0, col_index-1); col_n <=
+            min_ (m.nCols-1,col_index+1); ++col_n) {
+            if (m.values[row_n][col_n] == 1)
+                n++;
+        }
+    }
+    return n-m.values[row_index][col_index];
+}
 
+matrix task2 (matrix m) {
+    matrix next = getMemMatrix(m.nRows, m.nCols);
+    for (int row_index = 0; row_index < m.nRows; ++row_index) {
+        for (int col_index = 0; col_index < m.nCols; ++col_index) {
+            int count = countNeighbours(m, row_index, col_index);
+            if (m.values[row_index][col_index] == 1) {
+                if (count < 2 || count > 3) {
+                    next.values[row_index][col_index] = 0;
+                } else
+                    next.values[row_index][col_index] = 1;
+            } else {
+                if (count == 3) {
+                    next.values[row_index][col_index] = 1;
+                } else
+                    next.values[row_index][col_index] = 0;
+            }
+        }
+    }
+    return next;
+}
 
+void test2() {
+    matrix m1 = createMatrixFromArray(
+            (int[])
+                    {
+                            0, 1, 0,
+                            0, 0, 1,
+                            1, 1, 1,
+                            0, 0, 0
+                    },
+            4, 3
+    );
+    matrix m2 = createMatrixFromArray(
+            (int[])
+                    {
+                            0, 0, 0,
+                            1, 0, 1,
+                            0, 1, 1,
+                            0, 1, 0
+                    },
+            4, 3
+    );
+    matrix res = task2(m1);
+    assert(areTwoMatricesEqual(&res, &m2));
+    freeMemMatrix(&m1);
+    freeMemMatrix(&m2);
+    freeMemMatrix(&res);
+}
 
 
 
@@ -68,6 +137,8 @@ void test1() {
 
 void all_test(){
     test1();
+    test2();
+
 }
 
 

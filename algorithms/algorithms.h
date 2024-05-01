@@ -7,4 +7,6 @@ int getMax(int *a, int n);
 //возвращает максимум в массиве
 int getMin(int *a, int n);
 
+
+
 #endif //DATA_STRUCTURES1_ALGORITHMS_H

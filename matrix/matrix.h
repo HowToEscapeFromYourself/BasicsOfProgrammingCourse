@@ -119,4 +119,7 @@ matrix* loadSquareMatricesBin(FILE*f, int*n);
 //сохраняет матрицы в бинарный файл f
 void saveSquareMatricesBin(FILE*f, matrix* ms, int n);
 
+//копирует матрицу
+matrix copyMatrix(matrix m);
+
 #endif //DATA_STRUCTURES1_MATRIX_H

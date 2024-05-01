@@ -342,5 +342,13 @@ void saveSquareMatricesBin(FILE*f, matrix* ms, int n) {
     }
 }
 
-
+matrix copyMatrix(matrix m) {
+    matrix res = getMemMatrix(m.nRows, m.nCols);
+    for (int row_index = 0; row_index < m.nRows; ++row_index) {
+        for (int col_index = 0; col_index < m.nCols; ++col_index) {
+            res.values[row_index][col_index] = m.values[row_index][col_index];
+        }
+    }
+    return res;
+}
 
