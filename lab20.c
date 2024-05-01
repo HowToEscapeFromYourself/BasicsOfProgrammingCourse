@@ -131,6 +131,64 @@ void test2() {
     freeMemMatrix(&res);
 }
 
+//функция сравнения
+int intCmp(const void* p1,const void* p2) {
+    const int* s1 = (int*) p1;
+    const int* s2 = (int*) p2;
+    return *s1-*s2;
+}
+
+int filterWindow(matrix m, int row_index, int col_index, int filter,
+                 int *buffer) {
+    int start = filter/2;
+    int k = 0;
+    for (int row_i = row_index-start; row_i <= row_index+start; ++row_i) {
+        for (int col_i = col_index-start; col_i <= col_index+start; ++col_i) {
+            buffer[k++] = m.values[row_i][col_i];
+        }
+    }
+    qsort(buffer, filter*filter, sizeof(int), intCmp);
+    return buffer[filter*filter/2];
+}
+
+matrix task3(matrix m, int filter) {
+    int start = filter/2;
+    int buffer[filter*filter];
+    matrix next = copyMatrix(m);
+    for (int row_index = start; row_index < m.nRows-start; ++row_index) {
+        for (int col_index = start; col_index < m.nCols-start; ++col_index) {
+            next.values[row_index][col_index] = filterWindow(
+                    m, row_index,col_index,filter, buffer);
+        }
+    }
+    return next;
+}
+
+void test3() {
+    matrix m1 = createMatrixFromArray(
+            (int[])
+                    {
+                            10, 20, 30,
+                            25, 35, 45,
+                            15, 25, 35
+                    },
+            3, 3
+    );
+    matrix m2 = createMatrixFromArray(
+            (int[])
+                    {
+                            10, 20, 30,
+                            25, 25, 45,
+                            15, 25, 35
+                    },
+            3, 3
+    );
+    matrix res = task3(m1, 3);
+    assert(areTwoMatricesEqual(&res, &m2));
+    freeMemMatrix(&m1);
+    freeMemMatrix(&m2);
+    freeMemMatrix(&res);
+}
 
 
 
@@ -138,7 +196,7 @@ void test2() {
 void all_test(){
     test1();
     test2();
-
+    test3();
 }
 
 
