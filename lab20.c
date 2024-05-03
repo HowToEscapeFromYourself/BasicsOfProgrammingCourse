@@ -190,13 +190,68 @@ void test3() {
     freeMemMatrix(&res);
 }
 
+//считывает строку справа до точки
+bool getReverse(char* r_begin, char* r_end, WordDescriptor* word) {
+    if (r_end >= r_begin)
+        return false;
+    word->end = r_begin;
+    while (*r_begin != '.' && r_begin != r_end )
+        r_begin--;
+    word->begin = r_begin+1;
+    return true;
+}
 
+//ищет индекс строки в массиве arr
+int findStrIndex(char** arr, char* str, int n) {
+    for (int i = 0; i < n; ++i) {
+        if (!strcmp(arr[i], str))
+            return i;
+    }
+    return -1;
+}
 
+void task4(char* a[],  int digits[], int n, char*** out_arr, int** out_values,
+             int* out_n) {
+    char** arr = malloc(n*3*sizeof (char*));
+    int* values = malloc(n*3*sizeof (int));
+    int arr_size = 0;
+    for (int i = 0; i < n; ++i) {
+        WordDescriptor word = {getEndOfString(a[i])+1, NULL};
+        while (getReverse(word.begin-2, a[i]-1, &word)) {
+            int index_arr = findStrIndex(arr, word.begin, arr_size);
+            if (index_arr != -1)
+                values[index_arr] += digits[i];
+            else {
+                values[arr_size] = digits[i];
+                arr[arr_size] = malloc(strlen(word.begin)+1);
+                strcpy_(arr[arr_size++], word.begin);
+            }
+        }
+    }
+    *out_n = arr_size;
+    *out_arr = arr;
+    *out_values = values;
+}
+
+void test4() {
+    int n = 4;
+    char* str[] = {"google.mail.com", "yahoo.com", "intel.mail.com", "wiki.org"};
+    int digits[] = {900, 50, 1, 5};
+    int res_n;
+    char** res_str;
+    int* res_digits;
+    task4(str, digits, n, &res_str, &res_digits, &res_n);
+    for (int i = 0; i < res_n; ++i) {
+        printf("%d %s\n", res_digits[i], res_str[i]);
+    }
+
+}
 
 void all_test(){
     test1();
     test2();
     test3();
+    test4();
 }
 
 

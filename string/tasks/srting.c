@@ -318,6 +318,7 @@ void  strcpy_(char *dst, char *src){
         *dst = *src;
         dst++, src++;
     }
+    *dst = '\0';
 }
 
 void getReverseSort(char *s) {
