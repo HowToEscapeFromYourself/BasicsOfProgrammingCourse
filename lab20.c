@@ -309,6 +309,36 @@ void test5(){
     freeMemMatrix(&m2);
 }
 
+void task6(char* str, char* out) {
+    char stack[9];
+    int stack_size = 0;
+    char t = '1';
+    while (true) {
+        stack[stack_size++] = t++;
+        if (*str == 'I' || *str == '\0') {
+            while (stack_size) {
+                *out = stack[--stack_size];
+                out++;
+            }
+            if (*str == '\0')
+                break;
+        }
+        str++;
+    }
+}
+
+void test6() {
+    char str1[] = "IIIDIDDD";
+    char str2[] = "DDD";
+    char str3[10];
+    char str4[5];
+    char res1[] = "123549876";
+    char res2[] = "4321";
+    task6(str1, str3);
+    task6(str2, str4);
+    assert(!strcmp(str3, res1));
+    assert(!strcmp(str4, res2));
+}
 
 
 
@@ -318,6 +348,7 @@ void all_test(){
     test3();
     test4();
     test5();
+    test6();
 }
 
 
