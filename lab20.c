@@ -340,7 +340,50 @@ void test6() {
     assert(!strcmp(str4, res2));
 }
 
+//возвращает индекс максимальльного элемента массива
+int getMaxIndex(int *a, int n) {
+    int max_elem = a[0];
+    int max_index = 0;
+    for (int index = 1; index < n; ++index) {
+        if (a[index] > max_elem) {
+            max_elem = a[index];
+            max_index = index;
+        }
 
+    }
+    return max_index;
+}
+
+typedef struct tree_node{
+    int value;
+    struct tree_node* left;
+    struct tree_node* right;
+} tree_node;
+
+
+
+void task8(char* str, int* digits, char* res) {
+    int n = (int)strlen_(str);
+    for (int i = 0; i < n; ++i) {
+        res[i] = str[digits[i]];
+    }
+    res[n] = '\0';
+}
+
+void test8() {
+    char* s1 = "abc";
+    int digit1[] = {0,1,2};
+    char* s2 = "abap";
+    int digit2[] = {0,3,2,1};
+    char res1[4];
+    char res2[5];
+    task8(s1, digit1, res1);
+    task8(s2, digit2, res2);
+    char* res11 = "abc";
+    char* res22 = "apab";
+    assert(!strcmp(res1, res11));
+    assert(!strcmp(res2, res22));
+}
 
 void all_test(){
     test1();
@@ -349,6 +392,7 @@ void all_test(){
     test4();
     test5();
     test6();
+    test8();
 }
 
 
