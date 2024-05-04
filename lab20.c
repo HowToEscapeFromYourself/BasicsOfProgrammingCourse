@@ -360,6 +360,49 @@ typedef struct tree_node{
     struct tree_node* right;
 } tree_node;
 
+//создании дерева
+tree_node* createTree(int* digits, int n) {
+    if (n<=0)
+        return NULL;
+    tree_node* tree = malloc(sizeof(tree_node));
+    int max_index = getMaxIndex(digits, n);
+    tree->value = digits[max_index];
+    tree->left = createTree(digits, max_index);
+    tree->right = createTree(digits+max_index+1, n-max_index-1);
+    return tree;
+}
+
+//выводит дерево
+void outputTree(tree_node* tree) {
+    if (tree == NULL) {
+        printf("null ");
+        return;
+    }
+    printf("%d ", tree->value);
+    outputTree(tree->left);
+    outputTree(tree->right);
+}
+
+//удаление дерева
+void freeTree(tree_node* tree) {
+    if (tree == NULL)
+        return;
+    freeTree(tree->left);
+    freeTree(tree->right);
+    memset(tree, 0, sizeof(tree_node));
+    free(tree);
+}
+
+
+void test7() {
+    int digits[] = {3,2,1,6,0,5};
+    int n = 6;
+    tree_node* tree = createTree(digits, n);
+    outputTree(tree);
+    freeTree(tree);
+}
+
+
 
 
 void task8(char* str, int* digits, char* res) {
@@ -392,6 +435,7 @@ void all_test(){
     test4();
     test5();
     test6();
+    test7();
     test8();
 }
 
