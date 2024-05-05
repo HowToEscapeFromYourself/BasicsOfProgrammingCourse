@@ -4,6 +4,7 @@
 #include <string.h>
 #include "string/tasks/string.h"
 #include "Polynomial/polynomial.h"
+#include <conio.h>
 
 typedef struct {
     int row1;
@@ -428,6 +429,49 @@ void test8() {
     assert(!strcmp(res2, res22));
 }
 
+void task9(char* filename, int n) {
+    FILE* f = fopen(filename, "r");
+    int count;
+    fscanf(f, "%d", &count);
+    int arr[count];
+    int count_arr = 0;
+    for (int i = 0; i < count; ++i) {
+        int k;
+        fscanf(f, "%d", &k);
+        if (k < n)
+            arr[count_arr++]=k;
+    }
+    fclose(f);
+    f = fopen(filename, "w");
+    fprintf(f, "%d ", count_arr);
+    for (int i = 0; i < count_arr; ++i) {
+        fprintf(f, "%d ", arr[i]);
+    }
+    fclose(f);
+}
+
+//записывает в файл строку
+void writeStrInFile(char* filename, char* s) {
+    FILE* f = fopen(filename, "w");
+    fprintf(f, "%s", s);
+    fclose(f);
+}
+
+void task9_gen(char* name) {
+    writeStrInFile(name, "10 3 4 75 12 34 56 12 92 38 6");
+}
+
+void test9() {
+    int n; // 20
+    scanf("%d", &n);
+    char name[256];
+    scanf("%s", name);
+    task9_gen("task9.txt");
+    task9(name, n);
+}
+
+
+
 void all_test(){
     test1();
     test2();
@@ -437,6 +481,7 @@ void all_test(){
     test6();
     test7();
     test8();
+    test9();
 }
 
 
